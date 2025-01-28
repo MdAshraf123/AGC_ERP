@@ -1,0 +1,67 @@
+#nevigate{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 60px;
+    width: 100%;
+    padding: 15px;
+    position: fixed;
+    top:0px;
+    z-index: 100;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 5px 15px rgb(241, 237, 237) ;
+    border: solid 1px green;
+}
+#navlinks{
+    display:inline-flex;
+    justify-content: space-between;
+    list-style: none;
+    gap:20px;
+    box-sizing: border-box;
+    padding: 4px;
+}
+.links{
+    flex-grow:1;
+    text-align: center;
+    text-transform: capitalize;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+a{
+    text-decoration: none;
+    padding: 10px 10px;
+    cursor: pointer;
+    border-radius: 50px/100px;
+}
+.logo{
+   height: 50px;
+   width: 100px;
+   text-align: center;
+}
+.logo #colge{
+    width: 150px;
+    height: 50px;
+    filter: brightness(1) contrast(2);
+}
+@media screen and (max-width:765px) {
+    
+    #navlinks, .second{
+        display: none;
+    }
+    .logo #colge{
+        scale: 0.8;
+    }
+    .menu-s{
+        display: flex;
+        align-items: center;
+    }
+    .menu-s button{
+       
+        border:none;
+        scale:1.5;
+        background-color: transparent;
+        
+    }
+    
+}
