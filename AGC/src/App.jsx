@@ -4,7 +4,12 @@ import viteLogo from '/vite.svg'
 
 import Nav from './Nav.jsx'
 import Table from './Table.jsx'
+import Card from './Card.jsx'
 import AttendenceGraph from './AttendenceGraph.jsx'
+import BookIssued from './BookIssued.jsx'
+import FeeStatus from './FeeStatus.jsx'
+import Footer from './Footer.jsx'
+import TodayAttends from './TodayAttends.jsx'
 
 function App() {
 
@@ -13,7 +18,11 @@ function App() {
     <>
       {/* <Table/> */}
       <Nav/>
-      <AttendenceGraph/>
+      <Card content={<TodayAttends/>} heading={"Today Attends"} style={{"height":"15rem"}}/>
+      <Card content={<AttendenceGraph style={{"width":"25%"}}/>} heading="Attendence"/>
+      <Card content={<BookIssued/>} heading="Book Issued"/>  
+      <Card content={<FeeStatus/>} heading="Fee Status"/>
+      <Footer/>
     </>
   )
 }

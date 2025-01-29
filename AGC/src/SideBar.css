@@ -1,0 +1,76 @@
+.side-bar{
+    display:none;
+    flex-direction:column;
+    position: fixed;
+    right:0;
+    top:0;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+   
+}
+.close{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:5px;
+    padding:5px;
+    /* background-color: rgb(196, 93, 93); */
+    height: 23vh;
+    position: relative;
+}
+.close .ctrl-close{
+    position:absolute;
+    top:0;
+    right:0;
+    background-color: transparent;
+    border: none;
+    scale:0.7;
+    padding:15px;
+    border-radius: 5px;
+}
+.profile-img{
+    border: solid 1px black;
+    border-radius: 100px;
+    height: 80px;
+    width: 80px;
+    margin:15px;
+}
+.close button:active{
+    background-color: rgb(213, 213, 213);
+}
+.btns-container{
+    padding: 15px 40px;
+    height:77vh ;
+    overflow-y:scroll;
+}
+.user, .academics{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: green; */
+}
+.user div, .academics div{
+    padding:15px 0 0 0;
+    border-top: solid 2px rgba(21, 21, 21, 0.453);
+    width:100%;
+    margin-bottom: 10px;
+}
+.academics{
+    margin-top: 40px;
+}
+.user ul, .academics ul{
+    width: 100%;
+    list-style: none;
+    padding: 0;
+}
+.pannel-buttons{
+    padding:15px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    border-bottom:solid 1px rgb(253, 251, 251) ;
+    border-radius: 3px;
+}

@@ -1,0 +1,27 @@
+.box{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    height:auto;
+    border-radius: 10px;
+    padding: 10px;
+    /* border: solid 1px rgb(214, 28, 28); */
+    box-shadow: 0px 0px 15px rgb(202, 192, 192);
+    max-width: 97%;
+    height: 15rem;
+    width: 96%;
+    
+}
+.box h1{
+    text-align: center;
+    margin-bottom: 10px;
+}
+svg{
+    /* border-left: solid;
+    border-bottom: solid; */
+    border: solid #7b1616;
+
+    margin: 0px;
+    width:100%;  
+}
