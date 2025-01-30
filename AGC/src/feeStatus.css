@@ -1,0 +1,22 @@
+.fee-grid-cont{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    row-gap:3px;
+    column-gap: 20px;
+
+}
+.items{
+    width: 150px;
+    height: 80px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.388);
+    margin: 4px;
+    padding:8px 10px;
+}
+.items p:first-child{
+    margin-bottom: 0.2rem;
+}
+.fee-amounts{
+    text-align: center;
+}

@@ -1,0 +1,47 @@
+.atend-head-div{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.atend-info{
+    padding:10px;
+    width: 105px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: rgba(229, 229, 229, 0.468);
+}
+.atend-info:first-child{
+    background-color: rgba(245, 128, 128, 0.623);
+    color:white;
+}
+.atend-stu{
+    display: flex;
+    height: 70px;
+    width: 100%;
+    margin: 5px 0;
+    border-radius: 10px;
+    padding:5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.327);
+    gap:0px;
+    overflow: hidden;
+}
+.atend-stu::before{
+    content: '';
+    background-color: rgba(245, 128, 128, 0.623);
+    height: 70px;
+    width: 10px;
+    position: relative;
+    top:-5px;
+    left: -5px;
+}
+.atend-stu .atend-stu-1{
+    flex-grow:1;
+    padding:5px;
+}
+.atend-stu .atend-stu-1 p{
+    margin:0px;
+}
+.atend-stu .atend-stu-2{
+    padding:12px 5px;
+}

@@ -28,10 +28,10 @@
     border-radius: 50px;
     margin: 5px;
     /* border: inset  3px black; */
-    /* background-color: red;
-    box-shadow: 0 0 10px red; */
-    background-color: green;
-    box-shadow: 0 0 10px green;
+    background-color: red;
+    box-shadow: 0 0 10px red;
+    /* background-color: green;
+    box-shadow: 0 0 10px green; */
 }
 .second-part{
     line-height: 43px;

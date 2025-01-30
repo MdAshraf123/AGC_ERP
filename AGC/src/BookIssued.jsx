@@ -8,14 +8,28 @@ const BookIssued=()=>{
             <thead></thead>
             <tbody>
                 <tr className="">
-                    <td className="">Book</td>
-                    <td className="">Issue</td>
-                    <td className="">Expire</td>
+                    <th className="">Book</th>
+                    <th className="">Issue</th>
+                    <th className="">Expire</th>
+                    <th className=''>Fine</th>
                 </tr>
                 <tr className="">
-                    <td className="">Book</td>
-                    <td className="">Issue</td>
-                    <td className="">Expire</td>
+                    <td className="col-name">NP Bali</td>
+                    <td className="">15/01/25</td>
+                    <td className="">31/01/25</td>
+                    <td className="">0 Rs.</td>
+                </tr>
+                <tr className="">
+                    <td className="col-name">Ramanujan</td>
+                    <td className="">15/01/25</td>
+                    <td className="">31/01/25</td>
+                    <td className="">0 Rs.</td>
+                </tr>
+                <tr className="">
+                    <td className="col-name">Ramanujan</td>
+                    <td className="">15/01/25</td>
+                    <td className="">31/01/25</td>
+                    <td className="">10 Rs.</td>
                 </tr>
             </tbody>
         </table>

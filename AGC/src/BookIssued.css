@@ -1,7 +1,5 @@
-
-.circle{
-    stroke: red;
-    stroke-width: 10px;
-    stroke-linecap: round;
-    fill:none;
+.col-name{
+    overflow-x: hidden;
+    text-overflow: clip;
+    width: 80px;
 }
