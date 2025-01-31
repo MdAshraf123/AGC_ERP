@@ -16,9 +16,8 @@
     justify-content: center;
     align-items: center;
     gap:5px;
-    padding:5px;
-    /* background-color: rgb(196, 93, 93); */
-    height: 23vh;
+    padding:25px ;
+    min-height: 23vh;
     position: relative;
 }
 .close .ctrl-close{

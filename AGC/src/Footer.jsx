@@ -3,7 +3,7 @@ import './Footer.css'
 export default function(){
     let style={"display":"flex","flexDirection":"column",}
     return(
-        <footer style={style}>
+        <footer >
             <div>
                 <h2>Contact Us</h2>
                 <ul>

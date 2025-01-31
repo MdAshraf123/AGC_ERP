@@ -1,33 +1,34 @@
-import React from "react";
+import React, {useState} from "react";
 import './atendncMrking.css'
-const AtendncMrking=(props)=>{
-    
+import AtendncStuTemp from './AtendncStuTemp.jsx'
+const AtendncMrking=()=>{
+    const[p_count, setP_Count]=useState(2);
+    const[o_count,setO_Count]=useState(0);
+    const[a_count,setA_Count]=useState(0);
     return(
-        <>
-            <div className="atend-head-div">
-                <div className="atend-info"><p>Present: 46</p></div>
-                <div className="atend-info"><p>Out: 98</p></div>
-                <div className="atend-info"><p>Total: 98</p></div>
+        <> 
+            <div className="atend-head-can">
+                <div className="atend-head-control">
+                    <label ><b>Select lecture</b></label>
+                    <select className="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                
+                <div className="atend-head-div">
+                    <div className="atend-info"><p>Present: {p_count}</p></div>
+                    <div className="atend-info"><p>Out: {o_count}</p></div>
+                    <div className="atend-info"><p>Total: {a_count}</p></div>
+                </div>
             </div>
-            { props.content }
-            {/* <div className="atend-stu">
-                <div className="atend-stu-1">
-                    <p>Mohammad Ashraf</p>
-                    <p>2234221</p>
-                </div>
-                <div className="atend-stu-2">
-                    <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" checked={selectedOption === "option1"} onChange={(e) => setSelectedOption(e.target.value)} />
-                        <label className="btn btn-outline-success" htmlFor="btnradio1">P</label>
-
-                        <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autoComplete="off" checked={selectedOption === "option1"} onChange={(e) => setSelectedOption(e.target.value)} />
-                        <label className="btn btn-outline-primary" htmlFor="btnradio2">O</label>
-
-                        <input type="radio" className="btn-check" name="btnradio" id="btnradio3" autoComplete="off" checked={selectedOption === "option1"} onChange={(e) => setSelectedOption(e.target.value)} />
-                        <label className="btn btn-outline-danger" htmlFor="btnradio3">A</label>
-                    </div>
-                </div>
-            </div> */}
+            <AtendncStuTemp sname={"Mohammad Ashraf"} uroll={"2234221"} count={[setP_Count, setO_Count, setA_Count]}/>
+            <AtendncStuTemp sname={"Rahul Kumar"} uroll={"2234226"} count={[setP_Count, setO_Count, setA_Count]}/>
+            <AtendncStuTemp sname={"Vishal Kumar"} uroll={"2234586"} count={[setP_Count, setO_Count, setA_Count]}/>
+            <AtendncStuTemp sname={"Nitin Choudhary"} uroll={"2247526"} count={[setP_Count, setO_Count, setA_Count]}/>
+           <button className="btn btn-primary mt-4 mb-1 btn-lg">Submit</button>
         </>
     );
 }

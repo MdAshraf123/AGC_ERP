@@ -10,7 +10,9 @@ import FeeStatus from './FeeStatus.jsx'
 import Footer from './Footer.jsx'
 import TodayAttends from './TodayAttends.jsx'
 import AtendncMrking from './faculty/AtendncMrking.jsx'
-import AtendncStuTemp from './faculty/AtendncStuTemp.jsx'
+import AtendncHome from './faculty/atendncHome.jsx'
+import UplodMtrials from './faculty/UplodMtrials.jsx'
+import UserProfile from './UserProfile.jsx'
 
 function App() {
 
@@ -18,8 +20,12 @@ function App() {
   return (
     <>
       {/* <Table/> */}
-      <Nav/>
-      <Card content={<AtendncMrking content={[<AtendncStuTemp sname={"Mohammad Ashraf"} uroll={"2234221"}/>,<AtendncStuTemp sname={"Rahul Kumar"} uroll={"2234226"}/>]}/>} style={{"height":"auto"}}/>
+      <Nav/> 
+      {/* <UserProfile/> */}
+      {/* <Card content={<UplodMtrials/>} style={{'height':'auto'}}/> */}
+      {/* <Card content={<AtendncHome />}  style={{'height':'auto'}}/> */}
+
+      {/* <Card content={<AtendncMrking />} style={{"height":"auto"}}/> */}
       
       {/* <Card content={<TodayAttends/>} heading={"Today Attends"} style={{"height":"15rem"}}/>
       <Card content={<AttendenceGraph style={{"width":"25%"}}/>} heading="Attendence"/>

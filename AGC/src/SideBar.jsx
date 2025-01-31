@@ -19,9 +19,8 @@ const SideBar=forwardRef((props,ref)=>{
                         <h6>User</h6>
                     </div>                 
                     <ul> 
-                        <li>
-                            <a href=""><button className="pannel-buttons">Profile</button></a>
-                        </li>
+                        <li><a href=""><button className="pannel-buttons">Profile</button></a></li>
+                        <li><a href=""><button className="pannel-buttons">Change Password</button></a></li>
                     </ul>               
                 </div>
 
@@ -33,6 +32,7 @@ const SideBar=forwardRef((props,ref)=>{
                         <li><a href=""><button className="pannel-buttons">Assignments</button></a></li>
                         <li><a href=""><button className="pannel-buttons">Attendence</button></a></li>
                         <li><a href=""><button className="pannel-buttons">Academic Calender</button></a></li>
+                        <li><a href=""><button className="pannel-buttons">Suplies</button></a></li>
                         <li><a href=""><button className="pannel-buttons">Result</button></a></li>
                     </ul>
                 </div>

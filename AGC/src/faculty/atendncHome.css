@@ -1,0 +1,28 @@
+.card-btn{
+    display: flex;
+    flex-direction: column;
+    width:90%;
+    height: 200px;
+    margin: 10px 0;
+    border:none;
+    border-radius: 10px;
+    padding:30px;
+    position: relative;
+    background: linear-gradient(50deg, rgba(255, 117, 117, 0.525),rgba(89, 67, 255, 0.656)),
+                 url("/src/assets/bgImg.jpg")    no-repeat  rgba(255, 255, 255, 0.782);
+    background-position: 10% 80% ;
+    text-align: left;
+}
+.card-btn:active{
+    scale:0.995;
+    box-shadow: 0 0 10px rgba(86, 86, 86, 0.6);
+}
+.card-btn h2{
+    margin-bottom: auto;
+}
+.card-btn p{
+    margin:auto 0 3px 0;
+}
+.assign-btn{
+    background-position: 0% 90% ;
+}

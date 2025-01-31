@@ -1,9 +1,9 @@
 footer{
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
-    height: 50vh;
     width: 100vw;
     background-color: #0a1045;
     color: white;
-    padding:0 50px
+    padding:20px 40px
 }

@@ -1,0 +1,19 @@
+.uplod-ctrl-can{
+    width: 100%;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.277);
+    margin-bottom: 10px;
+
+}
+.doc-skelton{
+    /* height: calc(24 * 15 )px; */
+    width: 100%;
+    border: dashed 5px rgba(0, 0, 0, 0.365);
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+    margin-bottom:10px ;
+}
+.doc-skelton h1{
+    margin: 90px 0;
+    color: rgba(0, 0, 0, 0.365);
+}
