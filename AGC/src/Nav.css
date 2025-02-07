@@ -50,6 +50,9 @@
     width:20px;
     margin-right: 20px;
 }
+.menu-s{
+    display: none;
+}
 @media screen and (max-width:765px) {
     
     #navlinks, .second{

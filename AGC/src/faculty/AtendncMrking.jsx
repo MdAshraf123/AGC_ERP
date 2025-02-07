@@ -2,9 +2,11 @@ import React, {useState} from "react";
 import './atendncMrking.css'
 import AtendncStuTemp from './AtendncStuTemp.jsx'
 const AtendncMrking=()=>{
-    const[p_count, setP_Count]=useState(2);
+    const total=4;
+    const[p_count, setP_Count]=useState(total);
     const[o_count,setO_Count]=useState(0);
     const[a_count,setA_Count]=useState(0);
+    
     return(
         <> 
             <div className="atend-head-can">
@@ -21,12 +23,12 @@ const AtendncMrking=()=>{
                 <div className="atend-head-div">
                     <div className="atend-info"><p>Present: {p_count}</p></div>
                     <div className="atend-info"><p>Out: {o_count}</p></div>
-                    <div className="atend-info"><p>Total: {a_count}</p></div>
+                    <div className="atend-info"><p>Total: {total}</p></div>
                 </div>
             </div>
-            <AtendncStuTemp sname={"Mohammad Ashraf"} uroll={"2234221"} count={[setP_Count, setO_Count, setA_Count]}/>
-            <AtendncStuTemp sname={"Rahul Kumar"} uroll={"2234226"} count={[setP_Count, setO_Count, setA_Count]}/>
-            <AtendncStuTemp sname={"Vishal Kumar"} uroll={"2234586"} count={[setP_Count, setO_Count, setA_Count]}/>
+            <AtendncStuTemp sname={"Mohammad Ashraf"} uroll={"2234221"} count={[setP_Count, setO_Count, setA_Count]} />
+            <AtendncStuTemp sname={"Rahul Kumar"} uroll={"2234226"} count={[setP_Count, setO_Count, setA_Count]} />
+            <AtendncStuTemp sname={"Vishal Kumar"} uroll={"2234586"} count={[setP_Count, setO_Count, setA_Count]} />
             <AtendncStuTemp sname={"Nitin Choudhary"} uroll={"2247526"} count={[setP_Count, setO_Count, setA_Count]}/>
            <button className="btn btn-primary mt-4 mb-1 btn-lg">Submit</button>
         </>

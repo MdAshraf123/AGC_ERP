@@ -1,7 +1,7 @@
 import React,{forwardRef}from 'react'
 import close from './assets/close.png'
 import user from './assets/user.png'
-import './SideBar.css';
+import './SideBar.css'; 
 const SideBar=forwardRef((props,ref)=>{
     return (
         <div className="side-bar" ref={ref} style={{ display: "none" }}>

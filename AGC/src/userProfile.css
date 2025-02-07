@@ -1,11 +1,63 @@
 .profile-can{
-    display: ;
+    display: none;
     width: 100vw;
     height: 100vh;
     padding:30px;
     background-color: white;
-    position: absolute;
+    position: fixed;
     top:0;
     left: 0;
     z-index: 10;
+}
+.close-btn-div{
+    position: absolute;
+    right:20px;
+    top:20px;
+}
+.close-btn-div button{
+    width: 30px;
+    height: 30px;
+    background-color:transparent ;
+    border:none;
+}
+.close-btn-div button img{
+    width: 20px;
+    height: 20px;
+}
+.profile-can .list-group li{
+    padding: 8px 0;
+    
+}
+.profile-can .list-group li span{
+    float: right;
+}
+.profile-img-can{
+    display: flex;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    margin: 20px 0;
+}
+.profile-img-can .profileImg{
+    width:70px;
+    height: 70px;
+    border:solid 1px black;
+    border-radius: 100px;
+}
+.proImg{
+    flex-shrink: 0;
+    flex:
+}
+.focusData{
+    padding:10px;
+    
+}
+.focusData h4{
+    width:minmax(150px,100px) ;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    /* white-space:nowrap; */
+}
+.focusData p{
+    margin: 0;
 }

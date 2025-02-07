@@ -1,6 +1,63 @@
 import React,{ useState} from 'react'
 const AtendncStuTemp=(props)=>{
     const[selectedOption, setSelectedOption]=useState("P");
+    // function handling(e){
+    //     setSelectedOption((prevSelection)=>{
+    //         if(prevSelection==='P'){
+    //             props.count[0]((prev)=>
+    //             {
+    //                 console.log(prev);
+    //                 return prev-1;
+    //             }
+    //             )  
+    //         }
+    //         else if(prevSelection === 'O'){
+    //             props.count[1]((prev)=> prev-1)
+    //         }
+    //         else{
+    //             props.count[2]((prev)=> prev-1)
+    //         }
+    //         if(e.target.value==='P'){
+    //             props.count[0]((prev)=>prev+1)
+    //         }
+    //         else if(e.target.value === 'O'){
+    //             props.count[1]((prev)=> prev+1)
+    //         }
+    //         else{
+    //             props.count[2]((prev)=> prev+1)
+    //         }
+    //         return e.target.value;
+    //     });
+
+    // }
+
+    function handling(e) {
+        const newSelection = e.target.value; // New selected value
+        const prevSelection = selectedOption; // Previous selected value
+    
+        if (prevSelection !== newSelection) {
+          // Decrease count for the previous selection
+          if (prevSelection === "P") {
+            props.count[0]((prev) => prev - 1);
+          } else if (prevSelection === "O") {
+            props.count[1]((prev) => prev - 1);
+          } else {
+            props.count[2]((prev) => prev - 1);
+          }
+    
+          // Increase count for the new selection
+          if (newSelection === "P") {
+            props.count[0]((prev) => prev + 1);
+          } else if (newSelection === "O") {
+            props.count[1]((prev) => prev + 1);
+          } else {
+            props.count[2]((prev) => prev + 1);
+          }
+    
+          setSelectedOption(newSelection); // Finally, update the state
+        }
+      }
+    // console.log(props.count[0]);
     return( 
         <div className="atend-stu">
                 <div className="atend-stu-1">
@@ -9,13 +66,13 @@ const AtendncStuTemp=(props)=>{
                 </div>
                 <div className="atend-stu-2">
                     <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" className="btn-check" name={`btnradio-${props.uroll}`} id={`btnradio1-${props.uroll}`} value="P" autoComplete="off" checked={selectedOption === "P"} onChange={(e) => setSelectedOption(e.target.value)} />
+                        <input type="radio" className="btn-check" name={`btnradio-${props.uroll}`} id={`btnradio1-${props.uroll}`} value="P" autoComplete="off" checked={selectedOption === "P"} onChange={(e) => handling(e) } />
                         <label className="btn btn-outline-success" htmlFor={`btnradio1-${props.uroll}`}>P</label>
 
-                        <input type="radio" className="btn-check" name={`btnradio-${props.uroll}`} id={`btnradio2-${props.uroll}`} value="O" autoComplete="off" checked={selectedOption === "O"} onChange={(e) => setSelectedOption(e.target.value)} />
+                        <input type="radio" className="btn-check" name={`btnradio-${props.uroll}`} id={`btnradio2-${props.uroll}`} value="O" autoComplete="off" checked={selectedOption === "O"} onChange={(e) => handling(e) } />
                         <label className="btn btn-outline-primary" htmlFor={`btnradio2-${props.uroll}`}>O</label>
 
-                        <input type="radio" className="btn-check" name={`btnradio-${props.uroll}`} id={`btnradio3-${props.uroll}`} value="A" autoComplete="off" checked={selectedOption === "A"} onChange={(e) => setSelectedOption(e.target.value)} />
+                        <input type="radio" className="btn-check" name={`btnradio-${props.uroll}`} id={`btnradio3-${props.uroll}`} value="A" autoComplete="off" checked={selectedOption === "A"} onChange={(e) => handling(e) } />
                         <label className="btn btn-outline-danger" htmlFor={`btnradio3-${props.uroll}`}>A</label>
                     </div>
                 </div>

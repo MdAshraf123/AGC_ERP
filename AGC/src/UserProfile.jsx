@@ -1,16 +1,34 @@
 import React from 'react';
 import './userProfile.css';
+import close from './assets/close.png'
 const UserProfile=()=>{
     return(
         <>
             <div className="profile-can">
-                <h1>Profile</h1>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Name</li>
-                    <li class="list-group-item">Class</li>
-                    <li class="list-group-item">A third item</li>
-                    <li class="list-group-item">A fourth item</li>
-                    <li class="list-group-item">And a fifth one</li>
+                <div className='close-btn-div'>
+                    <button>
+                        <img src={ close} alt="" />
+                    </button>
+                </div>
+                <div className="profile-img-can">
+                    <div className="profileImg"><img className="proImg" src="" alt="" /></div>
+                    <div className='focusData' >
+                        <h4>Mohammad Ashraf Ali</h4>
+                        <p>6th sem</p>
+                    </div>
+                </div>
+                <ul className="list-group list-group-flush">
+                    <li className="list-group-item">Name <span>Mohammad Ashraf</span></li>
+                    <li className="list-group-item">Father's Name <span>Imteyaz Ahmad</span></li>
+                    <li className="list-group-item">Mother's Name <span></span></li>
+                    <li className="list-group-item">class <span>B-Tech (CSe)</span></li>
+                    <li className="list-group-item">U.Roll/C.Roll <span>2212206/2234221</span></li>
+                    <li className="list-group-item">Sem <span>6th</span></li>
+                    <li className="list-group-item">Batch<span>2022-2026</span></li>
+                    <li className="list-group-item">Contact <span>9576188048</span></li>
+                    <li className="list-group-item">Country <span>India</span></li>
+                    <li className="list-group-item">State <span>Bihar</span></li>
+                    <li className="list-group-item">Address <span>Siwan</span></li>
                 </ul>
             </div>
         </>
