@@ -30,12 +30,12 @@ function App() {
       {/* <Card content={<UplodMtrials/>} style={{'height':'auto'}}/>  */}
       {/* <Card content={<AtendncHome />}  style={{'height':'auto'}}/> */}
 
-     <Card content={<AtendncMrking />} style={{"height":"auto"}}/>
+     {/* <Card content={<AtendncMrking />} style={{"height":"auto"}}/> */}
        
-      {/* <Card content={<TodayAttends/>} heading={"Today Attends"} style={{"height":"15rem"}}/>
+      <Card content={<TodayAttends/>} heading={"Today Attends"} style={{"height":"15rem"}}/>
       <Card content={<AttendenceGraph style={{"width":"25%"}}/>} heading="Attendence"/>
       <Card content={<BookIssued/>} heading="Book Issued"/>  
-      <Card content={<FeeStatus/>} heading="Fee Status"/> */}
+      <Card content={<FeeStatus/>} heading="Fee Status"/>
       <Footer/> 
     </>
   )
