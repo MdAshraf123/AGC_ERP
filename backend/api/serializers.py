@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Department,Sections,Semester,Group,Students,Subjects
+from .models import Department,Section,Semester,Group,Student,Subject
 from django.contrib.auth.models import User
 
 class DepartmentSerializer(serializers.ModelSerializer):
@@ -17,26 +17,18 @@ class SemesterSerializer(serializers.ModelSerializer):
 class SectionsSerializer(serializers.ModelSerializer):
     department=DepartmentSerializer()
     class Meta:
-        model=Sections
+        model=Section
         fields=['department','semester','section']
 
 class StudentSerializer(serializers.ModelSerializer):
     department=DepartmentSerializer()
     class Meta:
-        model=Students
+        model=Student
         fields=['user','department','sections','semester','group','u_roll','c_roll','name','batch','course','father_name','mother_name','dob','address','city','state','country','email','phone','image']
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token=super().get_token(user)
-        if hasattr(user,'students'):
-            token['students']=True
-            token['Faculty']=False
-            token['staff']=False
-        else:
-            token['students']=False
-            token['Faculty']=False
-            token['staff']=False
-
+        token['role']=user.role
         return token

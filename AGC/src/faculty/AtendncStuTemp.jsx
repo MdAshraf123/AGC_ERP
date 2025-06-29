@@ -1,35 +1,6 @@
 import React,{ useState} from 'react'
 const AtendncStuTemp=(props)=>{
     const[selectedOption, setSelectedOption]=useState("P");
-    // function handling(e){
-    //     setSelectedOption((prevSelection)=>{
-    //         if(prevSelection==='P'){
-    //             props.count[0]((prev)=>
-    //             {
-    //                 console.log(prev);
-    //                 return prev-1;
-    //             }
-    //             )  
-    //         }
-    //         else if(prevSelection === 'O'){
-    //             props.count[1]((prev)=> prev-1)
-    //         }
-    //         else{
-    //             props.count[2]((prev)=> prev-1)
-    //         }
-    //         if(e.target.value==='P'){
-    //             props.count[0]((prev)=>prev+1)
-    //         }
-    //         else if(e.target.value === 'O'){
-    //             props.count[1]((prev)=> prev+1)
-    //         }
-    //         else{
-    //             props.count[2]((prev)=> prev+1)
-    //         }
-    //         return e.target.value;
-    //     });
-
-    // }
 
     function handling(e) {
         const newSelection = e.target.value; // New selected value

@@ -66,6 +66,10 @@
     padding: 0;
 }
 .pannel-buttons{
+    display:inline-block;
+    text-decoration: none;
+    color:black;
+    background-color: rgb(233, 233, 233);
     padding:15px;
     width: 100%;
     border: none;

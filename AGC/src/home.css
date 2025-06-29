@@ -55,6 +55,7 @@
     width: 10px;
     margin-left: auto;
     border-radius: 0 5px 5px 0;
+    cursor:pointer;
     /* height: 100%; */ 
 }
 #btn-open-close :checked ~.contact-links{

@@ -1,5 +1,5 @@
 .profile-can{
-    display: none;
+    display: block;
     width: 100vw;
     height: 100vh;
     padding:30px;
@@ -7,7 +7,7 @@
     position: fixed;
     top:0;
     left: 0;
-    z-index: 10;
+    z-index: 100;
 }
 .close-btn-div{
     position: absolute;
@@ -46,7 +46,6 @@
 }
 .proImg{
     flex-shrink: 0;
-    flex:
 }
 .focusData{
     padding:10px;

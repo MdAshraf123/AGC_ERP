@@ -1,7 +1,10 @@
 import React from 'react'
 import './login.css'
 import Card from './Card'
+import { MyContext } from './MyContext'
+import { useContext } from 'react'
 const Login=()=>{
+    const {login, refresh}=useContext(MyContext)// i have to start from heare (i have to login)
     return(
         <Card heading="Login" style={{'height':'21rem',}} content={
             <>

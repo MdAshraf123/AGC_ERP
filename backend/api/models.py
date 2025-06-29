@@ -1,7 +1,13 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
-# Create your models here.
+from django.conf import settings
+# Create your models here. 
+
+CHOICSES=[('employee','Employee'),('student','Student')]
+
+class User(AbstractUser):
+    role=models.CharField(max_length=15, choices=CHOICSES )
 
 class Department(models.Model):
     dId=models.IntegerField(unique=True, null=False)
@@ -22,7 +28,7 @@ class Semester(models.Model):
     def __str__(self):
         return f"{self.department}, {self.sem}"
 
-class Sections(models.Model):
+class Section(models.Model):
     department=models.ForeignKey(Department, on_delete=models.CASCADE, related_name='sections')
     semester=models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='sections')
     section=models.CharField(max_length=10)
@@ -35,16 +41,19 @@ class Sections(models.Model):
         return f"{self.department} {self.semester} {self.section} "
 
 class Group(models.Model):
-    sections=models.ForeignKey(Sections, on_delete=models.CASCADE, related_name='groups', default=1)
+    sections=models.ForeignKey(Section, on_delete=models.CASCADE, related_name='groups', default=1)
     group=models.CharField(max_length=5)
 
     def __str__(self):
         return f"{self.sections}{self.group}"
     
-class Students(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE, related_name='students')
+def upload_profile():
+    pass
+    
+class Student(models.Model):
+    user=models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='students')
     department=models.ForeignKey(Department, on_delete=models.CASCADE, related_name='students')
-    sections=models.ForeignKey(Sections, on_delete=models.CASCADE, related_name='students')
+    sections=models.ForeignKey(Section, on_delete=models.CASCADE, related_name='students')
     semester=models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='students')
     group=models.ForeignKey(Group,on_delete=models.CASCADE, related_name='students', default='1')
     u_roll=models.IntegerField(unique=True, null=True, blank=True)
@@ -62,7 +71,7 @@ class Students(models.Model):
     email=models.EmailField(unique=True, validators=[RegexValidator(r'^[a-zA-Z0-9._+-]+@gmail\.com$',"Enter gmail (@gmail.com)")])
     phone=models.CharField(max_length=15,unique=True, validators=[RegexValidator(r"^\d{10}$", "Enter only 10 digits number." )])
     father_phone=models.CharField(max_length=15, validators=[RegexValidator(r"^\d{10}$", "Enter only 10 digits number-")])
-    image=models.URLField()
+    image=models.ImageField(upload_to=upload_profile, default='null')
 
 
     def __str__(self):
@@ -70,7 +79,7 @@ class Students(models.Model):
 
     
 
-class Subjects(models.Model):
+class Subject(models.Model):
     department=models.ForeignKey(Department, on_delete=models.CASCADE, related_name="subjects")
     semester=models.ForeignKey(Semester, on_delete=models.CASCADE, related_name="subjects")
     sub_id=models.CharField(max_length=10, unique=True, null=True)
@@ -84,10 +93,10 @@ class Subjects(models.Model):
 
 class Attendence(models.Model):
     department=models.ForeignKey(Department, on_delete=models.CASCADE, related_name='attendences' )
-    sections=models.ForeignKey(Sections,on_delete=models.CASCADE, related_name='attendences')
+    sections=models.ForeignKey(Section,on_delete=models.CASCADE, related_name='attendences')
     group=models.ForeignKey(Group, on_delete=models.CASCADE,related_name='attendences' )
-    students=models.ForeignKey(Students,on_delete=models.CASCADE, related_name='attendences')
-    subject=models.ForeignKey(Subjects,on_delete=models.CASCADE, related_name="attendences")
+    students=models.ForeignKey(Student,on_delete=models.CASCADE, related_name='attendences')
+    subject=models.ForeignKey(Subject,on_delete=models.CASCADE, related_name="attendences")
     date=models.DateField(auto_now_add=True)
     is_present=models.CharField(max_length=2)
 
@@ -100,19 +109,20 @@ class Day(models.Model):
     def __str__(self):
         return f"{self.day}"
 
-class Employees(models.Model):
-    user=models.OneToOneField(User, on_delete=models.CASCADE, related_name="employeess")
+class Employee(models.Model):
+    user=models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="employeess")
     department=models.ForeignKey(Department, on_delete=models.CASCADE, related_name="employeess")
     emp_id=models.IntegerField(primary_key=True)
     name=models.CharField(max_length=30)
     role=models.CharField(max_length=20)
+    joindate=models.DateField()
     experties=models.CharField(max_length=25)
     city=models.CharField(max_length=30)
     state=models.CharField(max_length=30)
     address=models.CharField(max_length=50)
     phone=models.CharField(max_length=15)
     email=models.EmailField()
-    image=models.URLField()
+    image=models.ImageField(upload_to=upload_profile, default='null')
 
     def __str__(self):
         return f"{self.emp_id} {self.role} "

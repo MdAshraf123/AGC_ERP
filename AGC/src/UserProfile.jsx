@@ -6,7 +6,7 @@ const UserProfile=()=>{
         <>
             <div className="profile-can">
                 <div className='close-btn-div'>
-                    <button>
+                    <button onClick={(e)=>{}}>
                         <img src={ close} alt="" />
                     </button>
                 </div>
