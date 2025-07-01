@@ -1,4 +1,4 @@
-import React,{forwardRef}from 'react';
+import React,{forwardRef, useContext}from 'react';
 import close from './assets/close.png';
 import user from './assets/user.png';
 import { MyContext } from './MyContext.jsx';
@@ -6,7 +6,8 @@ import { NavLink, Link } from 'react-router-dom';
 import './SideBar.css'; 
 
 const SideBar=forwardRef((props,ref)=>{
-    
+    const { islogin,user }=useContext(MyContext);
+    console.log(user())//have to check it
     return (
         
         <div className="side-bar" ref={ref} style={{ display: "none" }}>
@@ -15,10 +16,10 @@ const SideBar=forwardRef((props,ref)=>{
                     <img src={close} alt="closeBtn" />
                 </button> 
                 <img className="profile-img" src={user}  />  
-                <p className="user-name"><b>Mohammad Ashraf</b></p> 
+                <p className="user-name"><b>{ 'Ashraf' }</b></p> 
             </div>
             <div className="btns-container">
-                { true ? (
+                { islogin ? (
                     <>
                         <div className='user'>
                             <div >
@@ -55,12 +56,10 @@ const SideBar=forwardRef((props,ref)=>{
                         </div>
                     </>
                 ):(
-                  <>
-                                    
+                  <>                                   
                     <ul style={{'listStyle':'none','padding':'0',}}> 
                         <li><NavLink to="/login" className={'pannel-buttons'}  onClick={()=>props.setIsOpen(false)}>Login</NavLink></li>         
-                    </ul>               
-                      
+                    </ul>                                   
                   </>  
                 )}
             </div>

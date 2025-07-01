@@ -26,9 +26,9 @@ class IsStudent(BasePermission):
     def has_permission(self, request, view):
         return request.user.is_authenticated and hasattr(request.user,'students') 
     
-class IsEmployees(BasePermission):
+class IsEmployee(BasePermission):
     def has_permission(self,request, view):
-        return request.user.is_authenticated and hasattr(request.user, 'employeess')
+        return request.user.is_authenticated and hasattr(request.user, 'employees')
     
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsStudent])
@@ -56,5 +56,13 @@ def semester(request):
 def student_profile(request):
     print(request.headers)
     student_data=request.user.students
+    serialized=StudentSerializer(student_data)
+    return Response(serialized.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated, IsEmployee])
+def employee_detail(request):
+    print(request.headers)
+    student_data=request.user.employees
     serialized=StudentSerializer(student_data)
     return Response(serialized.data)

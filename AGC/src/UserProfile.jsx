@@ -1,12 +1,14 @@
 import React from 'react';
+import { useState } from 'react';
 import './userProfile.css';
-import close from './assets/close.png'
+import close from './assets/close.png';
 const UserProfile=()=>{
+    const [ clsbtn, setClsbtn]=useState(true);
     return(
         <>
-            <div className="profile-can">
+            <div className="profile-can" style={{ display: clsbtn ? 'block': 'none'}}>
                 <div className='close-btn-div'>
-                    <button onClick={(e)=>{}}>
+                    <button onClick={()=>{ setClsbtn((prev)=> false) }}>
                         <img src={ close} alt="" />
                     </button>
                 </div>

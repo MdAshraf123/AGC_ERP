@@ -8,6 +8,7 @@ import {useRef,useEffect,useState} from 'react';
 import SideBar from './SideBar.jsx';
 import { NavLink } from 'react-router-dom';
 
+
 function btnStyle({isActive}){
     return(
         {
@@ -19,6 +20,7 @@ function btnStyle({isActive}){
 const Nav=()=>{
     const sidebarRef=useRef();
     const [isOpen, setIsOpen]=useState(false);
+    
     const clickHandler=()=>{
         setIsOpen((prev) => !prev);
     }
@@ -37,7 +39,7 @@ const Nav=()=>{
             <ul >
                 <nav id="navlinks">
                 <li className="links"><NavLink to="/" style={btnStyle}>Home</NavLink></li>
-                <li className="links"><NavLink to="/attendence" style={btnStyle}>Attendence</NavLink></li>
+                <li className="links"><NavLink to="attendance" style={btnStyle}>Attendence</NavLink></li>
                 <li className="links"><NavLink to="/profile">Profile</NavLink></li>
                 <li className="links"><a href="" target="blank">semester fee</a></li>
                 <li className="links"><a href="" target="blank">view</a></li>

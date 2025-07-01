@@ -6,14 +6,14 @@ const AtendncMrking=()=>{
     const[p_count, setP_Count]=useState(total);
     const[o_count,setO_Count]=useState(0);
     const[a_count,setA_Count]=useState(0);
-    
+    const[selected, setSelected]=useState('0')
     return(
         <> 
             <div className="atend-head-can">
                 <div className="atend-head-control">
                     <label ><b>Select lecture</b></label>
-                    <select className="form-select" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
+                    <select value={selected } onChange={(e)=>{ setSelected(e.target.value);}}className="form-select" aria-label="Default select example">
+                        <option value="0">Open this select menu</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>

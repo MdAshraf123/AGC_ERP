@@ -110,8 +110,8 @@ class Day(models.Model):
         return f"{self.day}"
 
 class Employee(models.Model):
-    user=models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="employeess")
-    department=models.ForeignKey(Department, on_delete=models.CASCADE, related_name="employeess")
+    user=models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="employees")
+    department=models.ForeignKey(Department, on_delete=models.CASCADE, related_name="employees")
     emp_id=models.IntegerField(primary_key=True)
     name=models.CharField(max_length=30)
     role=models.CharField(max_length=20)

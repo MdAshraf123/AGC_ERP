@@ -10,6 +10,7 @@ urlpatterns = [
     path('api/semester/', views.semester),
     path('api/sections/',views.sections), 
     path('api/student_profile/',views.student_profile),
+    path('api/employee/', views.employee_detail),
 ]
 
 # router=DefaultRouter()

@@ -12,6 +12,7 @@
                  url("/src/assets/bgImg.jpg")    no-repeat  rgba(255, 255, 255, 0.782);
     background-position: 10% 80% ;
     text-align: left;
+    text-decoration: none;
 }
 .card-btn:active{
     scale:0.995;
