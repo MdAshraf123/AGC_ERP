@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import BasePermission, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
-from api.serializers import DepartmentSerializer,SectionsSerializer,MyTokenObtainPairSerializer,SemesterSerializer,StudentSerializer
+from api.serializers import DepartmentSerializer,SectionsSerializer,MyTokenObtainPairSerializer,SemesterSerializer,StudentSerializer,EmployeeSerializer
 from api.models import Department,Section,Student,Semester
 from django.shortcuts import get_object_or_404
 # Create your views here.
@@ -62,7 +62,6 @@ def student_profile(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsEmployee])
 def employee_detail(request):
-    print(request.headers)
-    student_data=request.user.employees
-    serialized=StudentSerializer(student_data)
+    employee_data=request.user.employees
+    serialized=EmployeeSerializer(employee_data)
     return Response(serialized.data)

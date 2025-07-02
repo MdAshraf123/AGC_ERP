@@ -6,8 +6,8 @@ import { NavLink, Link } from 'react-router-dom';
 import './SideBar.css'; 
 
 const SideBar=forwardRef((props,ref)=>{
-    const { islogin,user }=useContext(MyContext);
-    console.log(user())//have to check it
+    const { islogin, user }=useContext(MyContext);
+    user().then((data)=>data);
     return (
         
         <div className="side-bar" ref={ref} style={{ display: "none" }}>
@@ -16,7 +16,7 @@ const SideBar=forwardRef((props,ref)=>{
                     <img src={close} alt="closeBtn" />
                 </button> 
                 <img className="profile-img" src={user}  />  
-                <p className="user-name"><b>{ 'Ashraf' }</b></p> 
+                <p className="user-name"><b>{ date.name }</b></p> 
             </div>
             <div className="btns-container">
                 { islogin ? (

@@ -9,8 +9,10 @@ export const MyContext=createContext();
 
 export function MyContextProvider({ children }){
     const [islogin, setIslogin]=useState(false);
+
+    
     async function  refresh(){
-        let refreshtoken='http://192.168.166.125:8000/api/token/refresh/';
+        let refreshtoken='http://192.168.224.166:8000/api/token/refresh/';
         let refresh= localStorage.getItem('refresh');
 
         if(refresh){
@@ -33,7 +35,7 @@ export function MyContextProvider({ children }){
     }
 
     async function login(user, pass){
-            let apitoken='http://192.168.166.125:8000/api/token/';
+            let apitoken='http://192.168.224.166:8000/api/token/';
             let response=await fetch(apitoken,
                 {
                     method:'POST',
@@ -63,30 +65,62 @@ export function MyContextProvider({ children }){
         return JSON.parse(atob(payload));
     }
 
-    function user(){
-        if(islogin){
-            let userdata=extractdata();
-            let url='http://127.0.0.1:8000/api/student_profile/';
-            if(userdata.role=='employee')
-                url='http://127.0.0.1:8000/api/employee/';
+    function isAccessTokenValid() {
+        const token = localStorage.getItem('access');
+        if (!token) return false;
 
-            fetch(url ,
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const currentTime = Math.floor(Date.now() / 1000);
+
+        return payload.exp > currentTime;
+    }
+
+//
+    function user(){
+        if(true){
+            let userdata=extractdata();
+            let url='http://192.168.224.166:8000/api/student_profile/';
+            if(userdata.role=='employee')
+                url='http://192.168.224.166:8000/api/employee/';
+
+            return fetch(url ,
                 {
                     method:'GET',
-                    header:{
+                    headers:{
                         'Content-Type':'application/json',
-                        'Authorizer':`Bearer ${ localStorage.getItem('access')}`,
-                        'user_id':`${ userdata.user_id }`,
-                        'role':`${ userdata.role }`,
+                        'Authorization':`Bearer ${ localStorage.getItem('access')}`,
                     }
                 }
             )
-            .then((resolve, reject)=> resolve.json())
-            .then((data)=> data)
-
+            .then((resolve)=> resolve.json())
+            .catch((rej)=>{
+                return 'rejected';
+            })
         }
-        
     };
+
+    const logout = () => {
+        localStorage.removeItem('access');
+        localStorage.removeItem('refresh');
+        setIsLogin(false);
+    };
+
+    async function authFetch(url, options = {}) {
+        if (!isAccessTokenValid()) {
+            const refreshed = await refreshAccessToken();
+            if (!refreshed) return;  // Refresh failed, user logged out
+        }
+
+        const access = localStorage.getItem('access');
+        options.headers = {
+            ...options.headers,
+            'Authorization': `Bearer ${access}`,
+            'Content-Type': 'application/json'
+        };
+
+        return fetch(url, options);
+    }
+
 
     return(
     <MyContext.Provider value={{login,user, refresh,extractdata, islogin, setIslogin}}>
