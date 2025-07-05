@@ -2,13 +2,13 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 import Card from './Card';
-import {MyContext} from './MyContext.jsx';
+import { MyContext } from './MyContext.jsx';
 
 
 
 const Login=()=>{
     const navigate=useNavigate();
-    const { login,extractdata }= useContext(MyContext);
+    const { login, extractdata }= useContext(MyContext);
     const [ username, setUsername ]=useState('');
     const [ password, setPassword ]=useState('');
     const [isrobot, setIsrobot]=useState(false);

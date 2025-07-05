@@ -157,5 +157,11 @@ class Attendence(models.Model):
     date=models.DateField(auto_now_add=True)
     is_present=models.BooleanField(default=False)
 
+    @property
+    def Python(self):
+        appearedcount=self.objects.filter(subject='Python', is_present=True).aggregate(total=models.Count())
+        totalcount=self.objects.filter(subject='Python').aggregate(total=models.Count())
+        return (appearedcount//totalcount)*100
+    
     def __str__(self):
         return f"{self.department} {self.subject} "

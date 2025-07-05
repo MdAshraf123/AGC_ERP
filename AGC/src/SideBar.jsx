@@ -1,13 +1,32 @@
-import React,{forwardRef, useContext}from 'react';
+import React,{forwardRef, useContext, useEffect, useState }from 'react';
 import close from './assets/close.png';
 import user from './assets/user.png';
 import { MyContext } from './MyContext.jsx';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import './SideBar.css'; 
 
 const SideBar=forwardRef((props,ref)=>{
-    const { islogin, user }=useContext(MyContext);
-    user().then((data)=>data);
+    const { islogin,setIslogin, user, isAccessTokenValid, refresh, logout }=useContext(MyContext);
+    const [username, setUsername]=useState('User');
+    const navigate= useNavigate();
+    useEffect(
+        ()=>{
+            if(isAccessTokenValid()){
+                setIslogin(true);
+            }
+            else{
+                 refresh(navigate);
+            }
+            if(islogin){
+                user().then((data)=>{
+                    setUsername(()=>{ return data.name});
+                })
+            }
+            
+        },
+        []
+    )
+    
     return (
         
         <div className="side-bar" ref={ref} style={{ display: "none" }}>
@@ -16,7 +35,7 @@ const SideBar=forwardRef((props,ref)=>{
                     <img src={close} alt="closeBtn" />
                 </button> 
                 <img className="profile-img" src={user}  />  
-                <p className="user-name"><b>{ date.name }</b></p> 
+                <p className="user-name"><b>{ username }</b></p> 
             </div>
             <div className="btns-container">
                 { islogin ? (
@@ -36,6 +55,7 @@ const SideBar=forwardRef((props,ref)=>{
                                 <h6>Academics</h6>
                             </div>
                             <ul>
+                                <li><Link to="" className="pannel-buttons">Dashboard</Link></li>
                                 <li><Link to="" className="pannel-buttons">Attendance</Link></li>
                                 <li><a href=""><button className="pannel-buttons">Assignments</button></a></li>
                                 <li><a href=""><button className="pannel-buttons">Academic Calender</button></a></li>
@@ -50,7 +70,7 @@ const SideBar=forwardRef((props,ref)=>{
                             </div>                 
                             <ul>
                                 <li>
-                                    <a href=""><button className="pannel-buttons">Logout</button></a>
+                                    <button className="pannel-buttons" onClick={()=>{ logout(navigate)}}>Logout</button>
                                 </li>
                             </ul>               
                         </div>

@@ -1,15 +1,31 @@
-import React, {useState} from 'react'
-import './home.css'
-import m2 from './assets/m2.jpeg'
-import m3 from './assets/m3.jpeg'
-import m4 from './assets/m4.jpeg'
-import f1 from './assets/f1.jpeg'
-import f2 from './assets/f2.jpeg'
-import f3 from './assets/f3.jpeg'
-import { use } from 'react'
+import React from 'react';
+import './home.css';
+import m2 from './assets/m2.jpeg';
+import m3 from './assets/m3.jpeg';
+import m4 from './assets/m4.jpeg';
+import f1 from './assets/f1.jpeg';
+import f2 from './assets/f2.jpeg';
+import f3 from './assets/f3.jpeg';
+import { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { MyContext } from './MyContext';
+
 
 const Home=()=>{
+    const navigate=useNavigate();
     const [is_open, setIsOpen]=useState(false);
+    const { extractdata }=useContext(MyContext);
+    useEffect(()=>{
+        if(localStorage.getItem('access')){
+            if(extractdata().role==='employee'){
+                navigate('/edashboard',{replace: true});
+            }
+            else if(extractdata().role==='student'){
+                navigate('/dashboard',{replace: true});
+            }
+        }
+        
+    },[])
     function handleContact(e){
         setIsOpen(!is_open);
     }

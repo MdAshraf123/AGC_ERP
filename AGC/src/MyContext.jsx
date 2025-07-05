@@ -1,5 +1,4 @@
 import {createContext, useState} from 'react';
-
 export const MyContext=createContext();
 
 // let getdepartment='http://127.0.0.1:8000/api/departments/';
@@ -9,9 +8,8 @@ export const MyContext=createContext();
 
 export function MyContextProvider({ children }){
     const [islogin, setIslogin]=useState(false);
-
-    
-    async function  refresh(){
+   
+    async function  refresh(navigate){
         let refreshtoken='http://192.168.224.166:8000/api/token/refresh/';
         let refresh= localStorage.getItem('refresh');
 
@@ -23,15 +21,21 @@ export function MyContextProvider({ children }){
                     body:JSON.stringify({'refresh': refresh,}),
                 }
             );
-            if(response.status== 200){
+            if(response.status === 200){
                 let jsondata= await response.json()
                 let token=jsondata.access;
                 localStorage.setItem('access',token );
+                setIslogin(true);
                 return true;
+            }
+            else if(response.status === 401){
+                localStorage.clear();
+                setIslogin(false);
+                navigate('/login');
             }
         
         }
-        return false;
+        
     }
 
     async function login(user, pass){
@@ -61,8 +65,11 @@ export function MyContextProvider({ children }){
     }
 
     function extractdata(){
-        let payload=localStorage.getItem('access').split('.')[1];
-        return JSON.parse(atob(payload));
+        let payload=localStorage.getItem('access')
+        if(payload){
+            return JSON.parse(atob(payload.split('.')[1]));
+        }
+        return JSON.parse('');
     }
 
     function isAccessTokenValid() {
@@ -77,7 +84,7 @@ export function MyContextProvider({ children }){
 
 //
     function user(){
-        if(true){
+        if(islogin){
             let userdata=extractdata();
             let url='http://192.168.224.166:8000/api/student_profile/';
             if(userdata.role=='employee')
@@ -99,10 +106,11 @@ export function MyContextProvider({ children }){
         }
     };
 
-    const logout = () => {
-        localStorage.removeItem('access');
-        localStorage.removeItem('refresh');
-        setIsLogin(false);
+    const logout = (navigate) => {
+        localStorage.clear();
+        localStorage.clear();
+        setIslogin(false);
+        navigate('');
     };
 
     async function authFetch(url, options = {}) {
@@ -123,7 +131,7 @@ export function MyContextProvider({ children }){
 
 
     return(
-    <MyContext.Provider value={{login,user, refresh,extractdata, islogin, setIslogin}}>
+    <MyContext.Provider value={{login, logout, user, refresh,extractdata, islogin, setIslogin, isAccessTokenValid }}>
         {children}
     </MyContext.Provider>
     )
