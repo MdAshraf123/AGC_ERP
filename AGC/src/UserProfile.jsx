@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { MyContext } from './MyContext.jsx';
 import './userProfile.css';
 import close from './assets/close.png';
+import userimg from './assets/user.png';
 const UserProfile=()=>{
     const { user ,extractdata }=useContext(MyContext);
     const [userprofile, setUserprofile]=useState({});
@@ -28,7 +29,7 @@ const UserProfile=()=>{
                     </button>
                 </div>
                 <div className="profile-img-can">
-                    <div className="profileImg"><img className="proImg" src="" alt="" /></div>
+                    <div className="profileImg"><img className="proImg" src={userimg} alt="" /></div>
                     <div className='focusData' >
                         <h4>{userprofile.name}</h4>
                         <p>{role=='employee'? userprofile.role: '6th sem'}</p>

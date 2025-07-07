@@ -20,12 +20,14 @@ admin.site.register(Semester)
 admin.site.register(Student,AdminStudent)
 admin.site.register(Section)
 admin.site.register(Group)
-admin.site.register(Subject)
-admin.site.register(Day) 
+admin.site.register(Subject) 
 admin.site.register(Attendence)
 admin.site.register(TeacherAlott) 
 admin.site.register(Employee, AdminEmployee) 
 
+class DayAdmin(admin.ModelAdmin):
+    list_display=['id','day']
+admin.site.register(Day, DayAdmin)
 
 class CustomUserAdmin(UserAdmin):
     model = User

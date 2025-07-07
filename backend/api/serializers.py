@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Department,Section,Semester,Group,Student,Subject,Employee
+from .models import Department,Section,Semester,Group,Student,Subject,Employee,TeacherAlott
 from django.contrib.auth.models import User
 
 class DepartmentSerializer(serializers.ModelSerializer):
@@ -14,8 +14,9 @@ class SemesterSerializer(serializers.ModelSerializer):
         model=Semester
         fields=['department','sem']
 
-class SectionsSerializer(serializers.ModelSerializer):
-    department=DepartmentSerializer()
+class SectionSerializer(serializers.ModelSerializer):
+    # department=DepartmentSerializer()
+    semester=SemesterSerializer()
     class Meta:
         model=Section
         fields=['department','semester','section']
@@ -31,6 +32,14 @@ class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model=Employee
         fields=['department','name','role','joindate','experties','city','state','address','phone','email']
+
+
+class TeacherAlottSerializer(serializers.ModelSerializer):
+    section=SectionSerializer() 
+    class Meta:
+        model=TeacherAlott
+        fields=['section','group','subject','day','time']
+
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod

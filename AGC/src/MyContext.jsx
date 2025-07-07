@@ -1,7 +1,7 @@
 import {createContext, useState} from 'react';
 export const MyContext=createContext();
 
-// let getdepartment='http://127.0.0.1:8000/api/departments/';
+// let getdepartment='http://10.21.19.166:8000/api/departments/';
 // let getsections='http://127.0.0.1:8000/api/sections/';
 // let getsemester='http://127.0.0.1:8000/api/semester/';
 // let getstudent='http://127.0.0.1:8000/api/student_profile/';
@@ -10,7 +10,7 @@ export function MyContextProvider({ children }){
     const [islogin, setIslogin]=useState(false);
    
     async function  refresh(navigate){
-        let refreshtoken='http://192.168.224.166:8000/api/token/refresh/';
+        let refreshtoken='http://10.51.166.142:8000/api/token/refresh/';
         let refresh= localStorage.getItem('refresh');
 
         if(refresh){
@@ -39,7 +39,7 @@ export function MyContextProvider({ children }){
     }
 
     async function login(user, pass){
-            let apitoken='http://192.168.224.166:8000/api/token/';
+            let apitoken='http://10.51.166.142:8000/api/token/';
             let response=await fetch(apitoken,
                 {
                     method:'POST',
@@ -86,9 +86,9 @@ export function MyContextProvider({ children }){
     function user(){
         if(islogin){
             let userdata=extractdata();
-            let url='http://192.168.224.166:8000/api/student_profile/';
+            let url='http://10.51.166.142:8000/api/student_profile/';
             if(userdata.role=='employee')
-                url='http://192.168.224.166:8000/api/employee/';
+                url='http://10.51.166.142:8000/api/employee/';
 
             return fetch(url ,
                 {
@@ -113,9 +113,9 @@ export function MyContextProvider({ children }){
         navigate('');
     };
 
-    async function authFetch(url, options = {}) {
+    async function authFetch(url, options = {},navig) {
         if (!isAccessTokenValid()) {
-            const refreshed = await refreshAccessToken();
+            const refreshed = await refresh(navig);
             if (!refreshed) return;  // Refresh failed, user logged out
         }
 
@@ -125,13 +125,12 @@ export function MyContextProvider({ children }){
             'Authorization': `Bearer ${access}`,
             'Content-Type': 'application/json'
         };
-
         return fetch(url, options);
     }
 
 
     return(
-    <MyContext.Provider value={{login, logout, user, refresh,extractdata, islogin, setIslogin, isAccessTokenValid }}>
+    <MyContext.Provider value={{login, logout, user, refresh,extractdata, islogin, setIslogin, isAccessTokenValid, authFetch }}>
         {children}
     </MyContext.Provider>
     )

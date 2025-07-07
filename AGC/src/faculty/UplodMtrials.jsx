@@ -1,16 +1,17 @@
-import React from 'react'
-import './uplodMtrials.css'
-import AtendncStuTemp from './AtendncStuTemp.jsx'
-import Card from '../Card.jsx'
-import ClasUpldCntent from './ClasUpldCntent.jsx'
-
+import React from 'react';
+import './uplodMtrials.css';
+import AtendncStuTemp from './AtendncStuTemp.jsx';
+import Card from '../Card.jsx';
+import ClasUpldCntent from './ClasUpldCntent.jsx';
+import { useState} from 'react';
 const UplodMtrials=()=>{
+    const[select, setSelect]=useState(0);
     return(
         <>
             <div className="uplod-ctrl-can">
                 <div className="form-floating mb-2">
-                    <select className="form-select" id="floatingSelect" aria-label="Floating label select example">
-                        <option selected>Open this select menu</option>
+                    <select className="form-select" id="floatingSelect" value={select} onChange={(e)=>{setSelect(e.target.value)}} aria-label="Floating label select example">
+                        <option >Open this select menu</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>

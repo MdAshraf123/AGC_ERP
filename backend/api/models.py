@@ -28,7 +28,7 @@ class Semester(models.Model):
         ]
     
     def __str__(self):
-        return f"{self.department}, {self.sem}th"
+        return f"({self.department}, {self.sem}th)"
 
 class Section(models.Model):
     department=models.ForeignKey(Department, on_delete=models.CASCADE, related_name='sections')
@@ -95,6 +95,7 @@ class Subject(models.Model):
 
 
 class Day(models.Model):
+    id=models.PositiveIntegerField(primary_key=True)
     day=models.CharField(max_length=10)
 
     def __str__(self):

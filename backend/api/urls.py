@@ -11,6 +11,8 @@ urlpatterns = [
     path('api/sections/',views.sections), 
     path('api/student_profile/',views.student_profile),
     path('api/employee/', views.employee_detail),
+    path('api/allotment/',views.teacher_allot),
+    path('api/students/', views.students_marking),
 ]
 
 # router=DefaultRouter()

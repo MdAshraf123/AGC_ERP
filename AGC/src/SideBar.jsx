@@ -1,6 +1,6 @@
 import React,{forwardRef, useContext, useEffect, useState }from 'react';
 import close from './assets/close.png';
-import user from './assets/user.png';
+import userimg from './assets/user.png';
 import { MyContext } from './MyContext.jsx';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import './SideBar.css'; 
@@ -34,7 +34,7 @@ const SideBar=forwardRef((props,ref)=>{
                 <button className="ctrl-close" onClick={()=>props.setIsOpen(false)}>
                     <img src={close} alt="closeBtn" />
                 </button> 
-                <img className="profile-img" src={user}  />  
+                <img className="profile-img" src={userimg} alt="user" />  
                 <p className="user-name"><b>{ username }</b></p> 
             </div>
             <div className="btns-container">
