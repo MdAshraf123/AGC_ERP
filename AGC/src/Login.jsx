@@ -2,18 +2,17 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 import Card from './Card';
+import closebtn from './assets/close.png';
 import { MyContext } from './MyContext.jsx';
 
 
 
-const Login=()=>{
+const Login=(props)=>{
     const navigate=useNavigate();
     const { login, extractdata }= useContext(MyContext);
     const [ username, setUsername ]=useState('');
     const [ password, setPassword ]=useState('');
-    const [isrobot, setIsrobot]=useState(false);
-     // i have to start from heare (i have to login)
-    
+    const [isrobot, setIsrobot]=useState(false);   
         
      const formhandler= async (e)=>{
         e.preventDefault();
@@ -28,10 +27,10 @@ const Login=()=>{
         let data=await login(username, password);
        
         if(data){
-             
+            props.setIsLoginOpen(false);
             if(extractdata().role==='student')
                 navigate('/dashboard');
-            else if(extractdata().role ==='employee')
+            else if(extractdata().role ==='faculty')
                 navigate('/edashboard');
             else{
                 alert('Rendaring failed!');
@@ -41,8 +40,10 @@ const Login=()=>{
         }
     }
     return(
-        <Card heading="Login" style={{'height':'21rem',}} content={
+        <div className="backgroundblur">
+        <Card heading="Login" style={{'height':'21rem', 'backgroundColor':'white'}} content={
             <>
+                <button className="closeLogin" onClick={()=>{ props.setIsLoginOpen(false);}}><img src={closebtn} alt="close" /></button>
                 <form onSubmit={ formhandler }>
                     <div className="mb-3">
                         <label htmlFor="userName" className="form-label">User id</label>
@@ -61,6 +62,7 @@ const Login=()=>{
                 
             </>
         }/>
+        </div>
     )
 }
 export default Login;

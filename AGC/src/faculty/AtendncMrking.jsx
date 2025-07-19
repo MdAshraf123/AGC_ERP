@@ -11,10 +11,11 @@ const AtendncMrking=()=>{
     const[p_count, setP_Count]=useState(students.length);
     const[o_count,setO_Count]=useState(0);
     const[a_count,setA_Count]=useState(0);
+    const [attendncData, setAttendncData]=useState({});
     const isFirstRender=useRef(true);
     let navigate=useNavigate();
     useEffect(()=>{  
-        authFetch('http://10.51.166.142:8000/api/allotment/',{
+        authFetch('http://10.58.38.166:8000/api/allotment/',{
             method:'GET',
             headers:{},
         }, navigate)
@@ -22,9 +23,12 @@ const AtendncMrking=()=>{
             return response.json();
         })
         .then((data)=>{
+            console.error(data.length,': no alotment present')
+            if( data.length!=0){
             let info= data.map((sec, i)=> <option key={i} value={[sec.section.semester.department.dId, sec.section.semester.sem, sec.section.section, (sec.group || 'Full'), sec.subject]}>{sec.section.semester.department.name }, SEM-{sec.section.semester.sem }, {(sec.section.section).toUpperCase() }, {sec.group || 'FULL' }, {sec.subject}</option>)
-            setOptions(info);
+            setOptions(info);      
             setSelected(info[0].props.value.toString());
+            }
         })
         
     },[])
@@ -35,39 +39,52 @@ const AtendncMrking=()=>{
             return;
         }
         let urlparams=selected.split(',');
-        let url=`http://10.51.166.142:8000/api/students/?dept=${urlparams[0]}&sem=${urlparams[1]}&sec=${urlparams[2]}&group=${urlparams[3]}`;
+        let url=`http://10.58.38.166:8000/api/students/?dept=${urlparams[0]}&sem=${urlparams[1]}&sec=${urlparams[2]}&group=${urlparams[3]}`;
         
         authFetch(url,{method:'GET',},navigate)
         .then((res)=>res.json())
-        .then((data)=>{ let student=data.map(
+        .then((data)=>{
+            console.log(data)
+             let student=data.map(
             (s,i)=>{
-                return <AtendncStuTemp key={i} sname={s.name} uroll={s.u_roll} count={[setP_Count, setO_Count, setA_Count]} />
+                return <AtendncStuTemp key={i} sname={s.name} uroll={s.u_roll} croll={s.c_roll} fatherName={s.father_name} section={s.sections} group={s.group.group} count={[setP_Count, setO_Count, setA_Count] } setAttendnc={setAttendncData} />
             })
+            // console.log(student)
             setStudents(student);
+            setP_Count(data.length);
+            setO_Count(0);
+            setA_Count(0);
+            setAttendncData(
+                {
+                    dept:urlparams[0],
+                    sem:urlparams[1],
+                    sec:urlparams[2],
+                    group:urlparams[3],
+                    subject:urlparams[4],
+                    students:[],
+                }
+            );
         })
     },[selected])
+    console.log('list',attendncData) ;
     return(
         <> 
             <div className="atend-head-can">
                 <div className="atend-head-control">
                     <label ><b>Select lecture</b></label>
                     <select value={selected } onChange={(e)=>{ setSelected(e.target.value);}}className="form-select" aria-label="Default select example">
-                        {/* <option value="0">Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option> */}
                         {options}
                     </select>
                 </div>
                 
                 <div className="atend-head-div">
                     <div className="atend-info"><p>Present: {p_count}</p></div>
-                    <div className="atend-info"><p>Out: {o_count}</p></div>
+                    <div className="atend-info"><p>Absent: {a_count}</p></div>
                     <div className="atend-info"><p>Total: {students.length}</p></div>
                 </div>
             </div>
             { students }
-            
+            {/* {console.log('rendered')} */}
             {/* <AtendncStuTemp sname={"Mohammad Ashraf"} uroll={"2234221"} count={[setP_Count, setO_Count, setA_Count]} />
             <AtendncStuTemp sname={"Rahul Kumar"} uroll={"2234226"} count={[setP_Count, setO_Count, setA_Count]} />
             <AtendncStuTemp sname={"Vishal Kumar"} uroll={"2234586"} count={[setP_Count, setO_Count, setA_Count]} />

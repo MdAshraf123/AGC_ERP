@@ -10,7 +10,7 @@ export function MyContextProvider({ children }){
     const [islogin, setIslogin]=useState(false);
    
     async function  refresh(navigate){
-        let refreshtoken='http://10.51.166.142:8000/api/token/refresh/';
+        let refreshtoken='http://10.58.38.166:8000/api/token/refresh/';
         let refresh= localStorage.getItem('refresh');
 
         if(refresh){
@@ -39,7 +39,7 @@ export function MyContextProvider({ children }){
     }
 
     async function login(user, pass){
-            let apitoken='http://10.51.166.142:8000/api/token/';
+            let apitoken='http://10.58.38.166:8000/api/token/';
             let response=await fetch(apitoken,
                 {
                     method:'POST',
@@ -86,9 +86,9 @@ export function MyContextProvider({ children }){
     function user(){
         if(islogin){
             let userdata=extractdata();
-            let url='http://10.51.166.142:8000/api/student_profile/';
-            if(userdata.role=='employee')
-                url='http://10.51.166.142:8000/api/employee/';
+            let url='http://10.58.38.166:8000/api/student_profile/';
+            if(userdata.role=='faculty')
+                url='http://10.58.38.166:8000/api/employee/';
 
             return fetch(url ,
                 {

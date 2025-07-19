@@ -6,6 +6,7 @@ import m4 from './assets/m4.jpeg';
 import f1 from './assets/f1.jpeg';
 import f2 from './assets/f2.jpeg';
 import f3 from './assets/f3.jpeg';
+import agc from './assets/agc.jpg';
 import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MyContext } from './MyContext';
@@ -17,7 +18,7 @@ const Home=()=>{
     const { extractdata }=useContext(MyContext);
     useEffect(()=>{
         if(localStorage.getItem('access')){
-            if(extractdata().role==='employee'){
+            if(extractdata().role==='faculty'){
                 navigate('/edashboard',{replace: true});
             }
             else if(extractdata().role==='student'){
@@ -48,7 +49,7 @@ const Home=()=>{
                 <p>
                     Amritsar Group of Colleges with its world-magnificence environment and superior learning system extends a warm welcome to the scholars from all around the globe who seek quality education in India to achieve a lucid profession.
                 </p>
-                <div className='agcimg'></div>
+                <img className='agcimg' src={agc}></img>
                 <p>
                 The institution is ranked among the best engineering colleges in North India. It is approved by the National Board of Accreditation (NBA)(2009-12 & 2016-18) and the National Assessment & Accreditation Council (NAAC) with Grade ‘A’. Additionally, the institute has earned diverse ranks no longer simplest in Punjab but in North India, forging it one of the best colleges in Punjab. AGC is affiliated with Inder Kumar Gujral Punjab Technical University (IKG PTU), Kapurthala (for engineering and Management courses) whereas the Pharmacy courses are affiliated to IKGPTU and PSBTE & IT. And, for the lately added courses under law i.e. BA LLB and LLB, the institute is affiliated with Guru Nanak Dev University (GNDU), Amritsar.
                 </p>

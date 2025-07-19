@@ -1,5 +1,5 @@
 .side-bar{
-    display:none;
+    display:flex;
     flex-direction:column;
     position: fixed;
     right:0;

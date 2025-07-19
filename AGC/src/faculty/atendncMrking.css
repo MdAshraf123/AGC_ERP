@@ -43,6 +43,7 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.327);
     gap:0px;
     overflow: hidden;
+    
 }
 .atend-stu::before{
     content: '';
@@ -63,3 +64,4 @@
 .atend-stu .atend-stu-2{
     padding:12px 5px;
 }
+

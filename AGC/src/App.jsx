@@ -13,11 +13,9 @@ import Layout from './Layout.jsx';
 import Login from './Login.jsx';
 import Home from './Home.jsx';
 import { MyContextProvider } from './MyContext.jsx';
-import { MyContext } from './MyContext';
-import { useContext } from 'react';
 import RoleProtectedRoute from './RoleProtectedRoute.jsx';
 import {  createBrowserRouter, RouterProvider } from 'react-router-dom'
-
+import FlashData from './components/compfile/FlashData.jsx';
 const router=createBrowserRouter(
   [
     {
@@ -38,13 +36,13 @@ const router=createBrowserRouter(
         },
         {
           path:'/attendance',
-          element:<RoleProtectedRoute allowedRoles={['employee']}>
+          element:<RoleProtectedRoute allowedRoles={['faculty']}>
                       <Card content={<AtendncMrking />} style={{"height":"auto"}}/>,
                   </RoleProtectedRoute>,
         },
         {
           path:'/dashboard',
-          element:<RoleProtectedRoute allowedRoles={ ['student']}>
+          element:  <RoleProtectedRoute allowedRoles={ ['student']}>
                     <>
                       <Card content={<TodayAttends/>} heading={"Today Attends"} style={{"height":"15rem"}}/>
                       <Card content={<AttendenceGraph style={{"width":"25%"}}/>} heading="Attendence"/>
@@ -55,13 +53,13 @@ const router=createBrowserRouter(
         },
         {
           path:'/edashboard',
-          element:<RoleProtectedRoute allowedRoles={['employee']}>
+          element:<RoleProtectedRoute allowedRoles={['faculty']}>
                       <Card content={<AtendncHome />}  style={{'height':'auto'}}/>,
                   </RoleProtectedRoute>,
         },
         {
           path:'/upload',
-          element:<RoleProtectedRoute allowedRoles={['employee']}>
+          element:<RoleProtectedRoute allowedRoles={['faculty']}>
                       <Card content={<UplodMtrials/>} style={{'height':'auto'}}/>,
                   </RoleProtectedRoute>,
         }
@@ -76,7 +74,6 @@ function App() {
   return (
     <>
       <MyContextProvider>
-      {/* <Table/> */} 
        <RouterProvider router={router}/> 
       </MyContextProvider>  
     </> 

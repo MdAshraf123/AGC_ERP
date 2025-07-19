@@ -70,13 +70,12 @@ def employee_detail(request):
 @permission_classes([IsAuthenticated, IsEmployee])
 def students_marking(request): 
     if not all(request.query_params.get(key) for key in request.query_params if key != 'group'):
-        return Response({'error':'all required params should have value'}, status=400)
+        return Response({'error':'all required params must have value'}, status=400)
     if request.query_params.get('group') != 'Full':
         filtered_student= Student.objects.filter(department__dId=request.query_params.get('dept'), semester__sem=request.query_params.get('sem'), group__group=request.query_params.get('group'), sections__section= request.query_params.get('sec'))
     else:
         filtered_student= Student.objects.filter(department__dId=request.query_params.get('dept'), semester__sem=request.query_params.get('sem'), sections__section= request.query_params.get('sec'))
     serializer=StudentSerializer(filtered_student, many=True)
-    print('ashraf- ',request.query_params.get('dept'))
     return Response(serializer.data)
 
 @api_view(['GET'])

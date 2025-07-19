@@ -6,7 +6,7 @@ from django.conf import settings
 from datetime import datetime
 # Create your models here. 
 
-CHOICSES=[('employee','Employee'),('student','Student')]
+CHOICSES=[('employee','Employee'),('student','Student'),('faculty','Faculty')] 
 
 class User(AbstractUser):
     role=models.CharField(max_length=15, choices=CHOICSES )
@@ -75,7 +75,6 @@ class Student(models.Model):
     father_phone=models.CharField(max_length=15, validators=[RegexValidator(r"^\d{10}$", "Enter only 10 digits number-")])
     image=models.ImageField(upload_to=upload_profile, default='null')
 
-
     def __str__(self):
         return f"{self.u_roll} {self.name} {self.course}" #{self.name} {self.batch} {self.course} {self.sem} {self.country} {self.phone} "
 
@@ -143,7 +142,6 @@ class TeacherAlott(models.Model):
                 raise ValidationError('Start time must be less than end time')
         except (ValueError,ValidationError) as e:
             print(e)
-
 
     def __str__(self):
         return f"{self.employees} {self.subject} "

@@ -21,8 +21,15 @@ class SectionSerializer(serializers.ModelSerializer):
         model=Section
         fields=['department','semester','section']
 
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Group
+        fields=['group']
+
 class StudentSerializer(serializers.ModelSerializer):
     department=DepartmentSerializer()
+    group=GroupSerializer()
+    sections=SectionSerializer()
     class Meta:
         model=Student
         fields=['user','department','sections','semester','group','u_roll','c_roll','name','batch','course','father_name','mother_name','dob','address','city','state','country','email','phone','image']

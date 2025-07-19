@@ -32,12 +32,12 @@ const UserProfile=()=>{
                     <div className="profileImg"><img className="proImg" src={userimg} alt="" /></div>
                     <div className='focusData' >
                         <h4>{userprofile.name}</h4>
-                        <p>{role=='employee'? userprofile.role: '6th sem'}</p>
+                        <p>{role=='faculty'? userprofile.role: '6th sem'}</p>
                     </div>
                 </div>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">Name <span>{ userprofile.name }</span></li>
-                    {role==='employee'?
+                    {role==='faculty'?
                     (<>
                         <li className="list-group-item">Designation <span>{ userprofile.role }</span></li>
                         <li className="list-group-item">Department <span>{ userprofile.department }</span></li>

@@ -2,11 +2,12 @@ import React,{forwardRef, useContext, useEffect, useState }from 'react';
 import close from './assets/close.png';
 import userimg from './assets/user.png';
 import { MyContext } from './MyContext.jsx';
+
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import './SideBar.css'; 
 
-const SideBar=forwardRef((props,ref)=>{
-    const { islogin,setIslogin, user, isAccessTokenValid, refresh, logout }=useContext(MyContext);
+const SideBar=(props)=>{
+    const { islogin,setIslogin, user, isAccessTokenValid, refresh, logout, extractdata }=useContext(MyContext);
     const [username, setUsername]=useState('User');
     const navigate= useNavigate();
     useEffect(
@@ -15,7 +16,7 @@ const SideBar=forwardRef((props,ref)=>{
                 setIslogin(true);
             }
             else{
-                 refresh(navigate);
+                refresh(navigate);
             }
             if(islogin){
                 user().then((data)=>{
@@ -26,10 +27,10 @@ const SideBar=forwardRef((props,ref)=>{
         },
         []
     )
-    
+    ////ref={ref} style={{ display: "none" }}
     return (
-        
-        <div className="side-bar" ref={ref} style={{ display: "none" }}>
+        <>
+        <div className="side-bar" >
             <div className="close">
                 <button className="ctrl-close" onClick={()=>props.setIsOpen(false)}>
                     <img src={close} alt="closeBtn" />
@@ -55,12 +56,28 @@ const SideBar=forwardRef((props,ref)=>{
                                 <h6>Academics</h6>
                             </div>
                             <ul>
-                                <li><Link to="" className="pannel-buttons">Dashboard</Link></li>
-                                <li><Link to="" className="pannel-buttons">Attendance</Link></li>
+                                { extractdata().role ==='faculty'? 
+                                <>
+                                <li><Link to="/edashboard" className="pannel-buttons" onClick={()=>props.setIsOpen(false)}>Dashboard</Link></li>
+                                <li><Link to="" className="pannel-buttons">Take leave</Link></li>
+                                <li><a href=""><button className="pannel-buttons">Academic Calender</button></a></li>
+                                </>
+                                :
+                                <>
+                                {extractdata().role ==='student'?
+                                <>
+                                    <li><Link to="" className="pannel-buttons">Dashboard</Link></li>
                                 <li><a href=""><button className="pannel-buttons">Assignments</button></a></li>
                                 <li><a href=""><button className="pannel-buttons">Academic Calender</button></a></li>
                                 <li><a href=""><button className="pannel-buttons">Suplies</button></a></li>
                                 <li><a href=""><button className="pannel-buttons">Result</button></a></li>
+                                </>:
+                                <></>
+                                }
+                                </>
+
+                            }
+                                
                             </ul>
                         </div>
 
@@ -78,15 +95,22 @@ const SideBar=forwardRef((props,ref)=>{
                 ):(
                   <>                                   
                     <ul style={{'listStyle':'none','padding':'0',}}> 
-                        <li><NavLink to="/login" className={'pannel-buttons'}  onClick={()=>props.setIsOpen(false)}>Login</NavLink></li>         
-                    </ul>                                   
+                        <li><button   className={'pannel-buttons'} onClick={
+                            ()=>{
+                                props.setIsOpen(false);
+                                props.setIsLoginOpen(true);
+                            }
+                            }>Login</button></li>
+                    </ul> 
+
                   </>  
                 )}
             </div>
             
         </div>
         
+        </>
     )
     
-});
+};
 export default SideBar;
