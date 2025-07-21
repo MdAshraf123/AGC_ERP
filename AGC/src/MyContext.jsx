@@ -10,6 +10,7 @@ export function MyContextProvider({ children }){
     const [islogin, setIslogin]=useState(false);
    
     async function  refresh(navigate){
+        console.log('refresh called')
         let refreshtoken='http://10.58.38.166:8000/api/token/refresh/';
         let refresh= localStorage.getItem('refresh');
 
@@ -31,7 +32,7 @@ export function MyContextProvider({ children }){
             else if(response.status === 401){
                 localStorage.clear();
                 setIslogin(false);
-                navigate('/login');
+                navigate('');
             }
         
         }
@@ -58,8 +59,11 @@ export function MyContextProvider({ children }){
                 setIslogin(true);
                 return true;
             }
-            else{
-                alert('please try again!')
+            else if(response.status === 401){
+                alert('Your credentials are wrong!');
+            }
+            else{ 
+                alert('Something went wrong!');
             }
         return false;
     }
@@ -69,7 +73,7 @@ export function MyContextProvider({ children }){
         if(payload){
             return JSON.parse(atob(payload.split('.')[1]));
         }
-        return JSON.parse('');
+        return JSON.parse('{}');
     }
 
     function isAccessTokenValid() {

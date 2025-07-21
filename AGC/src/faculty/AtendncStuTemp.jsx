@@ -3,7 +3,8 @@ import FlashData from '../components/compfile/FlashData.jsx';
 
 const AtendncStuTemp=(props)=>{
     const[selectedOption, setSelectedOption]=useState("P");
-    const[isOpenDisplayData, setIsOpenDisplayData]=useState(false);
+    const[isOpenFlashData, setIsOpenFlashData]=useState(false);
+
     function handling(e) {
         const newSelection = e.target.value; // New selected value
         const prevSelection = selectedOption; // Previous selected value
@@ -37,8 +38,7 @@ const AtendncStuTemp=(props)=>{
          let record={
             ...prev
          }
-          
-        
+                 
          let index=record.students.findIndex((obj)=>{
           return obj.uroll===props.uroll;
         });
@@ -57,8 +57,9 @@ const AtendncStuTemp=(props)=>{
         return record;
       });
     },[selectedOption])
+
     return( 
-        <div className="atend-stu" onDoubleClick={ ()=>{setIsOpenDisplayData(true)}}>
+        <div className="atend-stu" onDoubleClick={ ()=>{setIsOpenFlashData(true)}}>
                 <div className="atend-stu-1">
                     <p>{props.sname}</p> 
                     <p>{props.uroll}</p>
@@ -75,7 +76,7 @@ const AtendncStuTemp=(props)=>{
                         <label className="btn btn-outline-danger" htmlFor={`btnradio3-${props.uroll}`}>A</label>
                     </div>
                 </div>
-                {isOpenDisplayData? <FlashData closebtn={setIsOpenDisplayData} studentdata={props} /> : undefined }
+                {isOpenFlashData && <FlashData closebtn={setIsOpenFlashData} studentdata={props} />}
             </div>
     )
 }

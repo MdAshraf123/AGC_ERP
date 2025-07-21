@@ -35,8 +35,6 @@ const Login=(props)=>{
             else{
                 alert('Rendaring failed!');
             }
-        }else{
-            alert('login failed! try again please');
         }
     }
     return(

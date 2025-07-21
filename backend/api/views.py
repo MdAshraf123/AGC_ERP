@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import BasePermission, IsAuthenticated
@@ -8,7 +8,9 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from api.serializers import DepartmentSerializer,SectionSerializer,MyTokenObtainPairSerializer,SemesterSerializer,StudentSerializer,EmployeeSerializer,TeacherAlottSerializer
 from api.models import Department,Section,Student,Semester,TeacherAlott
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.hashers import make_password, check_password
 from datetime import datetime
+import re
 # Create your views here.
 
 # class DepartmentDetails(ModelViewSet):
@@ -84,3 +86,20 @@ def teacher_allot(request):
     allotment= TeacherAlott.objects.filter( employees= request.user.employees, day=datetime.now().isoweekday())
     serializer=TeacherAlottSerializer(allotment, many=True)
     return Response(serializer.data)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+
+def resetpassword(request):
+    regex='(?=.*\[A-Z]).*(?=.*[a-z]).*(?=.*\d).*(?=.*[@*=+&^%$#!_-]).*'
+    user=request.user
+    if not re.fullmatch(regex,request.data['newPassword']):
+        if user.check_password(request.data['oldPassword']):
+            user.password=make_password(request.data['newPassword'])
+            user.save()
+            return JsonResponse({'message':'Successfully changed!',}, status=200)
+        else:
+            return JsonResponse({'message':'Unauthorized user!',}, status=401)
+    else:
+        return JsonResponse({'message':'New password is in wrong format!',}, status=200)
+    

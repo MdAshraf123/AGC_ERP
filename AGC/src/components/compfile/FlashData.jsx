@@ -28,7 +28,7 @@ return(
                 </tr>
                 <tr>
                     <td>Section : </td>
-                    <td>SEC-{props.studentdata.section}</td>
+                    <td>{props.studentdata.section}</td>
                 </tr>
                 <tr>
                     <td>Group : </td>
@@ -36,6 +36,7 @@ return(
                 </tr>
             </tbody>
         </table>
+        
     </div>
 </div>
 </>

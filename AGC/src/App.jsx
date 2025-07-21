@@ -15,7 +15,7 @@ import Home from './Home.jsx';
 import { MyContextProvider } from './MyContext.jsx';
 import RoleProtectedRoute from './RoleProtectedRoute.jsx';
 import {  createBrowserRouter, RouterProvider } from 'react-router-dom'
-import FlashData from './components/compfile/FlashData.jsx';
+import ResetPassword from './components/compfile/ResetPassword.jsx';
 const router=createBrowserRouter(
   [
     {
@@ -27,8 +27,8 @@ const router=createBrowserRouter(
           element:<Home/>,
         },
         {
-          path:'/login',
-          element:<Login/>,
+          path:'/resetpassword',
+          element:<ResetPassword/>,
         },
         {
           path:'/profile',
@@ -74,6 +74,7 @@ function App() {
   return (
     <>
       <MyContextProvider>
+        {/* <ResetPassword/> */}
        <RouterProvider router={router}/> 
       </MyContextProvider>  
     </> 
