@@ -2,7 +2,7 @@ import React,{ useState, useEffect } from 'react';
 import FlashData from '../components/compfile/FlashData.jsx';
 
 const AtendncStuTemp=(props)=>{
-    const[selectedOption, setSelectedOption]=useState("P");
+    const[selectedOption, setSelectedOption]=useState(props.is_present);
     const[isOpenFlashData, setIsOpenFlashData]=useState(false);
 
     function handling(e) {
@@ -40,22 +40,25 @@ const AtendncStuTemp=(props)=>{
          }
                  
          let index=record.students.findIndex((obj)=>{
-          return obj.uroll===props.uroll;
+          return obj.students===props.croll; // .students is croll number
         });
 
         if(index!== -1){
           record.students[index].is_present=selectedOption;
         }
         else{
+          // name:props.sname,
+          //   uroll:props.uroll,
           record.students.push({
-            name:props.sname,
-            uroll:props.uroll,
+            students:props.croll, // the key students instead of croll is because serializer was expecting 'students' key           
             is_present:selectedOption,
           })
         }
         
         return record;
       });
+      
+      
     },[selectedOption])
 
     return( 

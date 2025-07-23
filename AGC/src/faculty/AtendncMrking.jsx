@@ -15,8 +15,22 @@ const AtendncMrking=()=>{
     const isFirstRender=useRef(true);
     let navigate=useNavigate();
 
+    async function attendcPutHandler(){
+        let url='http://172.16.120.138:8000/api/students/';
+        let response= await authFetch(url,
+            {
+            method: 'PUT',
+            body:JSON.stringify(attendncData),
+            },navigate);
+        if(response.status==200){
+            let data= await response.json();
+            alert('created')
+        }
+
+            
+    }
     useEffect(()=>{  
-        authFetch('http://10.58.38.166:8000/api/allotment/',{
+        authFetch('http://172.16.120.138:8000/api/allotment/',{
             method:'GET',
             headers:{},
         }, navigate)
@@ -39,14 +53,15 @@ const AtendncMrking=()=>{
             return;
         }
         let urlparams=selectedLecture.split(',');
-        let url=`http://10.58.38.166:8000/api/students/?dept=${urlparams[0]}&sem=${urlparams[1]}&sec=${urlparams[2]}&group=${urlparams[3]}`;
+        let url=`http://172.16.120.138:8000/api/students/?dept=${urlparams[0]}&sem=${urlparams[1]}&sec=${urlparams[2]}&group=${urlparams[3]}`;
         
         authFetch(url,{method:'GET',},navigate)
         .then((res)=>res.json())
         .then((data)=>{
+            console.log('section ',data);
              let studentList=data.map(
             (s,i)=>{
-                return <AtendncStuTemp key={i} sname={s.name} uroll={s.u_roll} croll={s.c_roll} fatherName={s.father_name} section={s.sections.section} group={s.group.group} count={[setP_Count, setO_Count, setA_Count] } setAttendnc={setAttendncData} />
+                return <AtendncStuTemp key={i} sname={s.student.name} uroll={s.student.u_roll} croll={s.student.c_roll} fatherName={s.student.father_name} section={s.student.sections.section} group={s.student.group.group} is_present={ s.is_present } count={[setP_Count, setO_Count, setA_Count] } setAttendnc={setAttendncData} />
             })
             
             setStudentAttndcList(studentList);
@@ -67,6 +82,7 @@ const AtendncMrking=()=>{
     },[selectedLecture])
 
     console.log('list',attendncData) ;
+
     return(
         <> 
             <div className="atend-head-can">
@@ -87,7 +103,7 @@ const AtendncMrking=()=>{
             
             {/* <AtendncStuTemp sname={"Mohammad Ashraf"} uroll={"2234221"} count={[setP_Count, setO_Count, setA_Count]} />
             <AtendncStuTemp sname={"Nitin Choudhary"} uroll={"2247526"} count={[setP_Count, setO_Count, setA_Count]}/> */}
-           <button className="btn btn-primary mt-4 mb-1 btn-lg" style= {{display:studentAttndcList.length==0? 'none': 'inline',}}>Submit</button>
+           <button className="btn btn-primary mt-4 mb-1 btn-lg" onClick={ attendcPutHandler } style= {{display:studentAttndcList.length==0? 'none': 'inline',}}>Submit</button>
         </>
     );
 }

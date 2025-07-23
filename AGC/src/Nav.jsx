@@ -1,6 +1,5 @@
 import React from 'react';
 import './Nav.css';
-import './Nav.js';
 import logo1 from './assets/logo1.webp';
 import  notification  from './assets/notification.png';
 import menu from './assets/menu.png';

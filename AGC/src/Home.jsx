@@ -56,7 +56,7 @@ const Home=()=>{
             </div>
             <div className='Image-Container'> 
                <h4>10+ Scholorships</h4>
-               <p>Students are grabing opporchunities</p>
+               <p>Students are not grabing opporchunities</p>
             </div>
             <h5>Our top alumines</h5>
             <div className='top-alumini'>

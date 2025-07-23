@@ -15,13 +15,17 @@ class AdminEmployee(admin.ModelAdmin):
             kwargs['queryset']=User.objects.filter(role='employee')       
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
     
+
+class AdminAttendance(admin.ModelAdmin):
+    list_display=['id','employee','students','department','subject','date','is_present']
+
 admin.site.register(Department) 
 admin.site.register(Semester)
 admin.site.register(Student,AdminStudent)
 admin.site.register(Section)
 admin.site.register(Group)
 admin.site.register(Subject) 
-admin.site.register(Attendence)
+admin.site.register(Attendence,AdminAttendance)
 admin.site.register(TeacherAlott) 
 admin.site.register(Employee, AdminEmployee) 
 
