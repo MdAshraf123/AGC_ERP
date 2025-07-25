@@ -8,7 +8,7 @@ const AtendncMrking=()=>{
     const[studentAttndcList, setStudentAttndcList]=useState([]);
     const { authFetch }= useContext(MyContext); 
     const [ scheduledLectures, setScheduledLectures]=useState([]);
-    const[p_count, setP_Count]=useState(studentAttndcList.length);
+    const[p_count, setP_Count]=useState(0);
     const[o_count,setO_Count]=useState(0);
     const[a_count,setA_Count]=useState(0);
     const [attendncData, setAttendncData]=useState({});
@@ -16,7 +16,7 @@ const AtendncMrking=()=>{
     let navigate=useNavigate();
 
     async function attendcPutHandler(){
-        let url='http://172.16.120.138:8000/api/students/';
+        let url='http://10.145.233.166:8000/api/students/';
         let response= await authFetch(url,
             {
             method: 'PUT',
@@ -24,13 +24,13 @@ const AtendncMrking=()=>{
             },navigate);
         if(response.status==200){
             let data= await response.json();
-            alert('created')
+            alert(data.message)
         }
 
             
     }
     useEffect(()=>{  
-        authFetch('http://172.16.120.138:8000/api/allotment/',{
+        authFetch('http://10.145.233.166:8000/api/allotment/',{
             method:'GET',
             headers:{},
         }, navigate)
@@ -47,27 +47,36 @@ const AtendncMrking=()=>{
         
     },[])
 
+    // ye useEffect 'selectedLecture' ke update hone pr run hoga aur database se student data fetch kr ke list kr dega
     useEffect(()=>{
+        
         if(isFirstRender.current){
             isFirstRender.current=false;
             return;
         }
         let urlparams=selectedLecture.split(',');
-        let url=`http://172.16.120.138:8000/api/students/?dept=${urlparams[0]}&sem=${urlparams[1]}&sec=${urlparams[2]}&group=${urlparams[3]}`;
+        let url=`http://10.145.233.166:8000/api/students/?dept=${urlparams[0]}&sem=${urlparams[1]}&sec=${urlparams[2]}&group=${urlparams[3]}`;
         
         authFetch(url,{method:'GET',},navigate)
         .then((res)=>res.json())
         .then((data)=>{
             console.log('section ',data);
+            setA_Count(0);//bas aise hi likh diya hu takin accidently ye encrease na ho
              let studentList=data.map(
             (s,i)=>{
-                return <AtendncStuTemp key={i} sname={s.student.name} uroll={s.student.u_roll} croll={s.student.c_roll} fatherName={s.student.father_name} section={s.student.sections.section} group={s.student.group.group} is_present={ s.is_present } count={[setP_Count, setO_Count, setA_Count] } setAttendnc={setAttendncData} />
+                // jab bhi lecture option ko select kiya jayega to ye count update ho jayega.
+                // ye data base ka data ka use kr ke present/absent show krega
+                if(s.is_present==='P'){
+                    setP_Count((prev)=> prev+1)
+                }
+                else{
+                    setA_Count((prev)=>prev+1)
+                }
+                return <AtendncStuTemp key={i} id={s.id} sname={s.student.name} uroll={s.student.u_roll} croll={s.student.c_roll} fatherName={s.student.father_name} section={s.student.sections.section} group={s.student.group.group} is_present={ s.is_present } count={[setP_Count, setO_Count, setA_Count] } setAttendnc={setAttendncData} />
             })
             
             setStudentAttndcList(studentList);
-            setP_Count(data.length);
-            setO_Count(0);
-            setA_Count(0);
+          
             setAttendncData(
                 {
                     dept:urlparams[0],

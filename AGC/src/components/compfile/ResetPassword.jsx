@@ -37,7 +37,7 @@ const ResetPassword=(props)=>{
             setErrorMessage('');
             if( refresh(navigate) ){
                 (async function(){
-                    return fetch('http://10.58.38.166:8000/api/resetpassword/',
+                    return fetch('http://10.145.233.166:8000/api/resetpassword/',
                     {
                         method:'PUT',
                         headers:{

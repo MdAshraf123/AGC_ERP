@@ -11,7 +11,7 @@ export function MyContextProvider({ children }){
    
     async function  refresh(navigate){
         console.log('refresh called')
-        let refreshtoken='http://172.16.120.138:8000/api/token/refresh/';
+        let refreshtoken='http://10.145.233.166:8000/api/token/refresh/';
         let refresh= localStorage.getItem('refresh');
 
         if(refresh){
@@ -32,7 +32,7 @@ export function MyContextProvider({ children }){
             else if(response.status === 401){
                 localStorage.clear();
                 setIslogin(false);
-                navigate('');
+                navigate('/');
             }
         
         }
@@ -40,7 +40,7 @@ export function MyContextProvider({ children }){
     }
 
     async function login(user, pass){
-            let apitoken='http://172.16.120.138:8000/api/token/';
+            let apitoken='http://10.145.233.166:8000/api/token/';
             let response=await fetch(apitoken,
                 {
                     method:'POST',
@@ -90,9 +90,9 @@ export function MyContextProvider({ children }){
     function user(){
         if(islogin){
             let userdata=extractdata();
-            let url='http://172.16.120.138:8000/api/student_profile/';
+            let url='http://10.145.233.166:8000/api/student_profile/';
             if(userdata.role=='faculty')
-                url='http://172.16.120.138:8000/api/employee/';
+                url='http://10.145.233.166:8000/api/employee/';
 
             return fetch(url ,
                 {
@@ -114,7 +114,8 @@ export function MyContextProvider({ children }){
         localStorage.clear();
         localStorage.clear();
         setIslogin(false);
-        navigate('');
+        console.log('logout')
+        navigate('/');
     };
 
     async function authFetch(url, options = {},navig) {

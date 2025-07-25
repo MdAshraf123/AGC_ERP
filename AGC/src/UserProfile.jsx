@@ -19,7 +19,7 @@ const UserProfile=()=>{
         }
     
     },[])
-
+    
     return(
         <>
             <div className="profile-can" >
@@ -40,7 +40,7 @@ const UserProfile=()=>{
                     {role==='faculty'?
                     (<>
                         <li className="list-group-item">Designation <span>{ userprofile.role }</span></li>
-                        <li className="list-group-item">Department <span>{ userprofile.department }</span></li>
+                        <li className="list-group-item">Department <span>{ userprofile.department.name }</span></li>
                         <li className="list-group-item">Join Date <span>{ userprofile.joindate }</span></li>
                         <li className="list-group-item">Phone <span>{ userprofile.phone }</span></li>
                         <li className="list-group-item">Email <span>{ userprofile.email }</span></li>

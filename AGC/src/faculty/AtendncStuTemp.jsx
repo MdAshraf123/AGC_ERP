@@ -50,6 +50,7 @@ const AtendncStuTemp=(props)=>{
           // name:props.sname,
           //   uroll:props.uroll,
           record.students.push({
+            id:props.id,
             students:props.croll, // the key students instead of croll is because serializer was expecting 'students' key           
             is_present:selectedOption,
           })

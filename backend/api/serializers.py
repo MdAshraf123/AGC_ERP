@@ -51,7 +51,7 @@ class AttendanceStudentSerializer(serializers.ModelSerializer):
         }
         
 class EmployeeSerializer(serializers.ModelSerializer):
-    department= Department()
+    department= DepartmentSerializer()
     class Meta:
         model=Employee
         fields=['department','name','role','joindate','experties','city','state','address','phone','email']
@@ -75,8 +75,43 @@ class PresentAbsentField(serializers.BooleanField):
     def to_representation(self, value):
         return 'P' if value else 'A'
     
+
+class BulkUpdateListSerializer(serializers.ListSerializer):
+    def update(self, instances, validated_data):
+        # Map each instance by its ID
+        instance_mapping = {instance.id: instance for instance in instances}
+        updated_instances = []
+
+        for data in validated_data:
+            instance = instance_mapping.get(data['id'])
+            if instance:
+                updated_instance = self.child.update(instance, data)
+                updated_instances.append(updated_instance)
+        return updated_instances
+
+    
 class AttendenceSerializer(serializers.ModelSerializer):
     student=StudentSerializer(source='students', read_only=True)
+
+    students=serializers.SlugRelatedField(
+        queryset=Student.objects.all(),
+        slug_field='c_roll',
+        write_only=True
+    )
+
+    date=serializers.DateField(read_only=True)
+
+    is_present=PresentAbsentField()
+    id = serializers.IntegerField()  #Make id writable
+    class Meta:
+        model=Attendence 
+        fields=['id','student','students','date','is_present'] 
+        list_serializer_class = BulkUpdateListSerializer 
+
+
+class AttendenceCreateSerializer(serializers.ModelSerializer):
+    student=StudentSerializer(source='students', read_only=True)
+
     students=serializers.SlugRelatedField(
         queryset=Student.objects.all(),
         slug_field='c_roll',
@@ -90,7 +125,6 @@ class AttendenceSerializer(serializers.ModelSerializer):
     class Meta:
         model=Attendence 
         fields=['student','students','date','is_present'] 
-
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod

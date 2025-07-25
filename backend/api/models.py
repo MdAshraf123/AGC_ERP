@@ -83,11 +83,11 @@ class Student(models.Model):
 class Subject(models.Model):
     department=models.ForeignKey(Department, on_delete=models.CASCADE, related_name="subjects")
     semester=models.ForeignKey(Semester, on_delete=models.CASCADE, related_name="subjects")
-    sub_id=models.CharField(max_length=10, unique=True, null=True)
-    name=models.CharField(max_length=10)
+    sub_id=models.CharField(max_length=10,  null=True)
+    name=models.CharField(max_length=20)
     type=models.CharField(max_length=10, null=True, choices=[('lecture','Lecture'),('lab','LAB'),('tute','Tute')])
     class Meta:
-        constraints=[ models.UniqueConstraint(fields=['department','semester','sub_id'],name="unique_dep_sem_sub_id" )]
+        constraints=[ models.UniqueConstraint(fields=['department','semester','sub_id', 'type'],name="unique_dep_sem_sub_id" ), models.UniqueConstraint( fields=['sub_id','type'], name='unique_sub')]
 
     def __str__(self):
         return f" ({self.semester} {self.sub_id}) "
@@ -128,7 +128,7 @@ class TeacherAlott(models.Model):
     class Meta: 
         constraints=[
             models.UniqueConstraint(
-                fields=['employees','section','subject','day'],
+                fields=['employees','section','subject','group','day'],
                 name='unique teacher can teach unique subject each day'
             )
         ]

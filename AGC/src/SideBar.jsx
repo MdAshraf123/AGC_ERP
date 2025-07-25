@@ -89,7 +89,7 @@ const SideBar = (props) => {
                         </Link>
                       </li>
                       <li>
-                        <Link className="pannel-buttons">                          
+                        <Link to="calender" className="pannel-buttons" onClick={() => props.setIsOpen(false)}>                          
                             Academic Calender                        
                         </Link>
                       </li>                     
@@ -111,11 +111,7 @@ const SideBar = (props) => {
                             </a>
                           </li>
                           <li>
-                            <a href="">
-                              <button className="pannel-buttons">
-                                Academic Calender
-                              </button>
-                            </a>
+                            <Link to="calender" className="pannel-buttons" onClick={() => props.setIsOpen(false)}> Academic Calender </Link>
                           </li>
                           <li>
                             <a href="">

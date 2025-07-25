@@ -16,6 +16,7 @@ import { MyContextProvider } from './MyContext.jsx';
 import RoleProtectedRoute from './RoleProtectedRoute.jsx';
 import {  createBrowserRouter, RouterProvider } from 'react-router-dom'
 import ResetPassword from './components/compfile/ResetPassword.jsx';
+import AcademicCalender from './components/compfile/AcademicCalender.jsx';
 const router=createBrowserRouter(
   [
     {
@@ -29,6 +30,10 @@ const router=createBrowserRouter(
         {
           path:'/resetpassword',
           element:<ResetPassword/>,
+        },
+         {
+          path:'/calender',
+          element:<AcademicCalender/>,
         },
         {
           path:'/profile',

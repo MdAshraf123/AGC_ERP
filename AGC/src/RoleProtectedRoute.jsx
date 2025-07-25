@@ -5,7 +5,7 @@ const RoleProtectedRoute=({allowedRoles, children})=>{
     const { extractdata }= useContext(MyContext);
     console.log(extractdata().role);
     if( !extractdata().role || !allowedRoles.includes( extractdata().role )){
-        return <Navigate to="/login"/>;
+        return <Navigate to="/"/>;
     }
 
     return children;
