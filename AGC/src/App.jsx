@@ -6,6 +6,7 @@ import BookIssued from './BookIssued.jsx';
 import FeeStatus from './FeeStatus.jsx';
 import TodayAttends from './TodayAttends.jsx';
 import AtendncMrking from './faculty/AtendncMrking.jsx';
+import TimeTable from './faculty/TimeTable.jsx';
 import AtendncHome from './faculty/atendncHome.jsx';
 import UplodMtrials from './faculty/UplodMtrials.jsx';
 import UserProfile from './UserProfile.jsx';
@@ -29,15 +30,22 @@ const router=createBrowserRouter(
         },
         {
           path:'/resetpassword',
-          element:<ResetPassword/>,
+          element:<RoleProtectedRoute allowedRoles={['faculty','student']}>
+                      <ResetPassword/>,
+                  </RoleProtectedRoute>,
         },
          {
           path:'/calender',
-          element:<AcademicCalender/>,
+          element:<RoleProtectedRoute allowedRoles={['faculty','student']}>
+                      <AcademicCalender/>,
+                  </RoleProtectedRoute>,
+          
         },
         {
           path:'/profile',
-          element:<UserProfile/>,
+          element:<RoleProtectedRoute allowedRoles={['faculty','student']}>
+                      <UserProfile/>,
+                  </RoleProtectedRoute>,
         },
         {
           path:'/attendance',
@@ -79,7 +87,7 @@ function App() {
   return (
     <>
       <MyContextProvider>
-        {/* <ResetPassword/> */}
+        {/* <TimeTable/> */}
        <RouterProvider router={router}/> 
       </MyContextProvider>  
     </> 

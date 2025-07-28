@@ -1,6 +1,6 @@
 import {createContext, useState} from 'react';
 export const MyContext=createContext();
-
+let HOST_URL='http://10.119.165.166:8000/';
 // let getdepartment='http://10.21.19.166:8000/api/departments/';
 // let getsections='http://127.0.0.1:8000/api/sections/';
 // let getsemester='http://127.0.0.1:8000/api/semester/';
@@ -11,7 +11,7 @@ export function MyContextProvider({ children }){
    
     async function  refresh(navigate){
         console.log('refresh called')
-        let refreshtoken='http://10.145.233.166:8000/api/token/refresh/';
+        let refreshtoken=HOST_URL+'api/token/refresh/';
         let refresh= localStorage.getItem('refresh');
 
         if(refresh){
@@ -40,7 +40,7 @@ export function MyContextProvider({ children }){
     }
 
     async function login(user, pass){
-            let apitoken='http://10.145.233.166:8000/api/token/';
+            let apitoken=HOST_URL+'api/token/';
             let response=await fetch(apitoken,
                 {
                     method:'POST',
@@ -90,9 +90,9 @@ export function MyContextProvider({ children }){
     function user(){
         if(islogin){
             let userdata=extractdata();
-            let url='http://10.145.233.166:8000/api/student_profile/';
+            let url=HOST_URL+'api/student_profile/';
             if(userdata.role=='faculty')
-                url='http://10.145.233.166:8000/api/employee/';
+                url=HOST_URL+'api/employee/';
 
             return fetch(url ,
                 {

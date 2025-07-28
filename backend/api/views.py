@@ -74,10 +74,13 @@ def students_marking(request):
     if request.method=='GET':
         if not all(request.query_params.get(key) for key in request.query_params if key != 'group'):
             return Response({'error':'all required params must have value'}, status=400)
-        if Attendence.objects.filter(date=datetime.today(), employee=request.user.employees, department__dId=request.query_params.get('dept'), sections__semester__sem= request.query_params.get('sem'),  sections__section=request.query_params.get('sec')).exists():
-            attendnc=Attendence.objects.filter(date=datetime.today(), employee=request.user.employees, department__dId=request.query_params.get('dept'), sections__semester__sem= request.query_params.get('sem'), sections__section=request.query_params.get('sec'))
+        if request.query_params.get('group') != 'Full' and Attendence.objects.filter(date=datetime.today(), employee=request.user.employees, department__dId=request.query_params.get('dept'), sections__semester__sem= request.query_params.get('sem'),  sections__section=request.query_params.get('sec'), group__group=request.query_params.get('group')).exists():
+            attendnc=Attendence.objects.filter(date=datetime.today(), employee=request.user.employees, department__dId=request.query_params.get('dept'), sections__semester__sem= request.query_params.get('sem'), sections__section=request.query_params.get('sec'), group__group=request.query_params.get('group'))
             serializer=AttendenceSerializer(attendnc, many=True)
-            print(serializer.data)
+            return Response(serializer.data)
+        elif request.query_params.get('group') == 'Full' and Attendence.objects.filter(date=datetime.today(), employee=request.user.employees, department__dId=request.query_params.get('dept'), sections__semester__sem= request.query_params.get('sem'),  sections__section=request.query_params.get('sec'), group=None).exists():
+            attendnc=Attendence.objects.filter(date=datetime.today(), employee=request.user.employees, department__dId=request.query_params.get('dept'), sections__semester__sem= request.query_params.get('sem'), sections__section=request.query_params.get('sec'), group=None)
+            serializer=AttendenceSerializer(attendnc, many=True)
             return Response(serializer.data)
         elif request.query_params.get('group') != 'Full':
             filtered_student= Student.objects.filter(department__dId=request.query_params.get('dept'), semester__sem=request.query_params.get('sem'), group__group=request.query_params.get('group'), sections__section= request.query_params.get('sec'))
@@ -148,15 +151,29 @@ def students_marking(request):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsEmployee])
-def teacher_allot(request):
+def teacher_allots_by_day(request):
     allotment= TeacherAlott.objects.filter( employees= request.user.employees, day=datetime.now().isoweekday())
     serializer=TeacherAlottSerializer(allotment, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def all_lecture_allots(request):
+    unique_sub=set()
+    subject_list=[]
+    allotments= TeacherAlott.objects.filter( employees= request.user.employees , subject__type='lecture')
+    for allot in allotments:
+        if str(allot.subject) not in unique_sub:
+            unique_sub.add(str(allot.subject))
+            subject_list.append(allot)
+    serializer=TeacherAlottSerializer(subject_list, many=True)
     return Response(serializer.data)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def resetpassword(request):
-    regex='(?=.*[A-Z]).*(?=.*[a-z]).*(?=.*\d).*(?=.*[@*=+&^%$#!_-]).*'
+    regex='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@*=+&^%$#!_-]).+$'
     user=request.user
     if not re.fullmatch(regex,request.data['newPassword']):
         if user.check_password(request.data['oldPassword']):

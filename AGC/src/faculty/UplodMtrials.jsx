@@ -3,24 +3,51 @@ import './uplodMtrials.css';
 import AtendncStuTemp from './AtendncStuTemp.jsx';
 import Card from '../Card.jsx';
 import ClasUpldCntent from './ClasUpldCntent.jsx';
-import { useState} from 'react';
+import {MyContext} from '../MyContext.jsx';
+import{ useNavigate} from 'react-router-dom';
+import { useState, useEffect, useContext} from 'react';
 const UplodMtrials=()=>{
-    const[select, setSelect]=useState(0);
+    const navigate=useNavigate();
+    const[selectedLecture, setSelectedLecture]=useState(null);
+    const[selectedFile, setSelectedFile]=useState(null);
+    const [lectureOptList, setLectureOptList]=useState([]);
+    const{authFetch,}=useContext(MyContext);
+    const HOST_URL='http://10.119.165.166:8000/'
+    useEffect(()=>{
+        authFetch(HOST_URL+'api/allotlectures/',
+            {
+                method:'GET',
+                headers:{},
+            },
+            navigate
+        )
+        .then( res=> res.json())
+        .then(lectures=> {
+            console.log(lectures)
+            let lecList=lectures.map((lecture)=>{
+                return <option key={Math.random()}>{lecture.section.semester.department.name},SEM-{lecture.section.semester.sem},{(lecture.section.section).toUpperCase()},{lecture.subject}</option>
+            })
+            setLectureOptList(lecList);
+
+        })
+
+    },[])
+   
     return(
         <>
             <div className="uplod-ctrl-can">
                 <div className="form-floating mb-2">
-                    <select className="form-select" id="floatingSelect" value={select} onChange={(e)=>{setSelect(e.target.value)}} aria-label="Floating label select example">
-                        <option >Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select className="form-select" id="floatingSelect" value={selectedLecture} onChange={(e)=>{setSelectedLecture(e.target.value)}} aria-label="Floating label select example">
+                        <option key={49823}>Choose option</option>
+                        { lectureOptList}
+                        
                     </select>
                     <label htmlFor="floatingSelect">Select Class</label>
                 </div>
                 <div className="mb-3 mt-1 mb-1">
                     {/* <label htmlFor="formFile" className="form-label">Default file input example</label> */}
-                    <input className="form-control" type="file" id="formFile" />
+                    {/* // have to continue from here */}
+                    <input className="form-control" type="file" accept="application/pdf" id="formFile"  onChange={(e)=>{selectedFile(e.target.value)}} />
                 </div>
                 <button className="btn btn-primary mb-2">Submit</button>
             </div>

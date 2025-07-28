@@ -1,8 +1,9 @@
 import React, {useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../MyContext.jsx';
-import './atendncMrking.css'
-import AtendncStuTemp from './AtendncStuTemp.jsx'
+import './atendncMrking.css';
+import AtendncStuTemp from './AtendncStuTemp.jsx';
+
 const AtendncMrking=()=>{
     const[selectedLecture, setSelectedLecture]=useState(',');
     const[studentAttndcList, setStudentAttndcList]=useState([]);
@@ -14,9 +15,10 @@ const AtendncMrking=()=>{
     const [attendncData, setAttendncData]=useState({});
     const isFirstRender=useRef(true);
     let navigate=useNavigate();
+    let HOST_URL='http://10.119.165.166:8000/';
 
     async function attendcPutHandler(){
-        let url='http://10.145.233.166:8000/api/students/';
+        let url=HOST_URL+'api/students/';
         let response= await authFetch(url,
             {
             method: 'PUT',
@@ -30,7 +32,7 @@ const AtendncMrking=()=>{
             
     }
     useEffect(()=>{  
-        authFetch('http://10.145.233.166:8000/api/allotment/',{
+        authFetch(HOST_URL+'api/allotclass_of_day/',{
             method:'GET',
             headers:{},
         }, navigate)
@@ -38,15 +40,20 @@ const AtendncMrking=()=>{
             return response.json();
         })
         .then((data)=>{
+            // console.log('allot',data[0].group.group)
             if( data.length!=0){
-                let lectureOptionList= data.map((sec, i)=> <option key={i} value={[sec.section.semester.department.dId, sec.section.semester.sem, sec.section.section, (sec.group || 'Full'), sec.subject]}>{sec.section.semester.department.name }, SEM-{sec.section.semester.sem }, {(sec.section.section).toUpperCase() }, {sec.group || 'FULL' }, {sec.subject}</option>)
+                let lectureOptionList= data.map((sec, i)=> {
+                    let group=null;
+                    if(sec.group){
+                        group=sec.group.group;
+                    }
+                 return <option key={i} value={[sec.section.semester.department.dId, sec.section.semester.sem, sec.section.section, (group || 'Full'), sec.subject]}>{sec.section.semester.department.name }, SEM-{sec.section.semester.sem }, {(sec.section.section).toUpperCase() }, {group || 'FULL' }, {sec.subject}</option>
+                })
                 setScheduledLectures(lectureOptionList);      
                 setSelectedLecture(lectureOptionList[0].props.value.toString());
             }
         })
-        
     },[])
-
     // ye useEffect 'selectedLecture' ke update hone pr run hoga aur database se student data fetch kr ke list kr dega
     useEffect(()=>{
         
@@ -55,13 +62,17 @@ const AtendncMrking=()=>{
             return;
         }
         let urlparams=selectedLecture.split(',');
-        let url=`http://10.145.233.166:8000/api/students/?dept=${urlparams[0]}&sem=${urlparams[1]}&sec=${urlparams[2]}&group=${urlparams[3]}`;
+        let url=HOST_URL+`api/students/?dept=${urlparams[0]}&sem=${urlparams[1]}&sec=${urlparams[2]}&group=${urlparams[3]}`;
         
         authFetch(url,{method:'GET',},navigate)
         .then((res)=>res.json())
         .then((data)=>{
-            console.log('section ',data);
+            console.log('students ',data);
             setA_Count(0);//bas aise hi likh diya hu takin accidently ye encrease na ho
+            setP_Count(0);
+            setA_Count(0);
+            setAttendncData({});
+            setStudentAttndcList([]);
              let studentList=data.map(
             (s,i)=>{
                 // jab bhi lecture option ko select kiya jayega to ye count update ho jayega.
@@ -72,7 +83,7 @@ const AtendncMrking=()=>{
                 else{
                     setA_Count((prev)=>prev+1)
                 }
-                return <AtendncStuTemp key={i} id={s.id} sname={s.student.name} uroll={s.student.u_roll} croll={s.student.c_roll} fatherName={s.student.father_name} section={s.student.sections.section} group={s.student.group.group} is_present={ s.is_present } count={[setP_Count, setO_Count, setA_Count] } setAttendnc={setAttendncData} />
+                return <AtendncStuTemp key={i+'-'+s.id+'-'+Date.now()} id={s.id} sname={s.student.name} uroll={s.student.u_roll} croll={s.student.c_roll} fatherName={s.student.father_name} section={s.student.sections.section} group={s.student.group.group} is_present={ s.is_present } count={[setP_Count, setO_Count, setA_Count] } setAttendnc={setAttendncData} />
             })
             
             setStudentAttndcList(studentList);

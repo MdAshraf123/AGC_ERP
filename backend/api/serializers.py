@@ -59,6 +59,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
 class TeacherAlottSerializer(serializers.ModelSerializer):
     section=SectionSerializer() 
+    group=GroupSerializer()
     class Meta:
         model=TeacherAlott
         fields=['section','group','subject','day','time']
@@ -126,10 +127,16 @@ class AttendenceCreateSerializer(serializers.ModelSerializer):
         model=Attendence 
         fields=['student','students','date','is_present'] 
 
+
+
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token=super().get_token(user)
         token['role']=user.role
         return token
+    
+
+
     

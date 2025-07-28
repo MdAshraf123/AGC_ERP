@@ -2,10 +2,13 @@ import React,{ useState, useEffect } from 'react';
 import FlashData from '../components/compfile/FlashData.jsx';
 
 const AtendncStuTemp=(props)=>{
+    console.log('att ',props.is_present)
     const[selectedOption, setSelectedOption]=useState(props.is_present);
     const[isOpenFlashData, setIsOpenFlashData]=useState(false);
-
+    // console.log('att ',props.is_present) //prints 'P'
+    console.log('att1 ',selectedOption) //prints 'A' why?
     function handling(e) {
+       
         const newSelection = e.target.value; // New selected value
         const prevSelection = selectedOption; // Previous selected value
     
@@ -34,13 +37,14 @@ const AtendncStuTemp=(props)=>{
     // console.log(props.count[0]);
    
     useEffect(()=>{
+      console.log('called')
       props.setAttendnc((prev)=>{
          let record={
             ...prev
          }
                  
          let index=record.students.findIndex((obj)=>{
-          return obj.students===props.croll; // .students is croll number
+          return obj.students===props.croll; // '.students' is 'croll' number
         });
 
         if(index!== -1){
@@ -61,7 +65,7 @@ const AtendncStuTemp=(props)=>{
       
       
     },[selectedOption])
-
+    console.log('att2 ',selectedOption)
     return( 
         <div className="atend-stu" onDoubleClick={ ()=>{setIsOpenFlashData(true)}}>
                 <div className="atend-stu-1">

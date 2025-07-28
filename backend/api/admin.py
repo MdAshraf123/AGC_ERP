@@ -19,7 +19,7 @@ class AdminEmployee(admin.ModelAdmin):
     
 
 class AdminAttendance(admin.ModelAdmin):
-    list_display=['id','employee','students','department','subject','date','is_present']
+    list_display=['id','employee','students','department','group','subject','date','is_present']
 
 class AdminSubject(admin.ModelAdmin):
     list_display=['sub_id','department','semester','name','type']
@@ -27,12 +27,15 @@ class AdminSubject(admin.ModelAdmin):
 class AdminTeacherAlott(admin.ModelAdmin):
     list_display=['employees','section','group','subject','day','time']
 
+class AdminGroup(admin.ModelAdmin):
+    list_display=['id','sections', 'group']
+
 
 admin.site.register(Department) 
 admin.site.register(Semester)
 admin.site.register(Student,AdminStudent)
 admin.site.register(Section)
-admin.site.register(Group)
+admin.site.register(Group,AdminGroup)
 admin.site.register(Subject, AdminSubject) 
 admin.site.register(Attendence,AdminAttendance)
 admin.site.register(TeacherAlott,AdminTeacherAlott) 

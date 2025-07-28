@@ -164,3 +164,20 @@ class Attendence(models.Model):
     
     def __str__(self):
         return f"{self.department} {self.subject} "
+    
+class AcademicAssignment(models.Model):
+    department=models.ForeignKey(Department, on_delete=models.CASCADE , related_name='academicassignment')
+    semester=models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='academicassignment')
+    section=models.ForeignKey(Section, on_delete=models.CASCADE, related_name='academicassignment')
+    uploaddate=models.DateField(auto_now_add=True)
+    assignmentfile=models.FileField(upload_to='assignments/')
+
+    def __str__(self):
+        return f"({self.id})"
+
+
+class TableHistory(models.Model):
+    department=models.ForeignKey(Department, on_delete=models.CASCADE , related_name='tablehistory')
+    semester=models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='tablehistory')
+    section=models.ForeignKey(Section, on_delete=models.CASCADE, related_name='tablehistory')
+    logfile=models.FileField(upload_to='logs/')

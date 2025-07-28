@@ -11,7 +11,8 @@ urlpatterns = [
     path('api/sections/',views.sections), 
     path('api/student_profile/',views.student_profile),
     path('api/employee/', views.employee_detail),
-    path('api/allotment/',views.teacher_allot),
+    path('api/allotclass_of_day/',views.teacher_allots_by_day),
+    path('api/allotlectures/', views.all_lecture_allots),
     path('api/students/', views.students_marking),
     path('api/resetpassword/', views.resetpassword ),
 ]
