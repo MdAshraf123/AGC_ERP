@@ -11,8 +11,10 @@ const UplodMtrials=()=>{
     const[selectedLecture, setSelectedLecture]=useState(null);
     const[selectedFile, setSelectedFile]=useState(null);
     const [lectureOptList, setLectureOptList]=useState([]);
+    const[fetchedAssignments, setFetchedAssignments]=useState([]);
     const{authFetch,}=useContext(MyContext);
-    const HOST_URL='http://10.119.165.166:8000/'
+    const HOST_URL='http://172.16.120.138:8000/'
+
     useEffect(()=>{
         authFetch(HOST_URL+'api/allotlectures/',
             {
@@ -32,7 +34,24 @@ const UplodMtrials=()=>{
         })
 
     },[])
-   
+
+    useEffect(()=>{
+        authFetch(HOST_URL+'api/assignments/',
+            {
+                method:'GET',
+                headers:{},
+            },
+            navigate
+        )
+        .then((res)=>res.json())
+        .then((data)=>{
+            setFetchedAssignments(data);
+            console.log('assign',data);
+        })
+
+    },[])
+
+    console.log('file',selectedFile)
     return(
         <>
             <div className="uplod-ctrl-can">
@@ -47,14 +66,22 @@ const UplodMtrials=()=>{
                 <div className="mb-3 mt-1 mb-1">
                     {/* <label htmlFor="formFile" className="form-label">Default file input example</label> */}
                     {/* // have to continue from here */}
-                    <input className="form-control" type="file" accept="application/pdf" id="formFile"  onChange={(e)=>{selectedFile(e.target.value)}} />
+                    <input className="form-control" type="file" accept="application/pdf" id="formFile"  onChange={(e)=>{ setSelectedFile(e.target.files[0])}} />
                 </div>
-                <button className="btn btn-primary mb-2">Submit</button>
+                <button className="btn btn-primary mb-2" disabled={ !(selectedFile!=null && selectedLecture != 'Choose option')}>Submit</button>
             </div>
+            
+            { fetchedAssignments.length==0? 
             <div className="doc-skelton">
                 <h1>No Uploads Yet</h1>
             </div>
-            <ClasUpldCntent/>
+            :
+            <>
+            { fetchedAssignments.map((rec,index)=> <ClasUpldCntent key={index} data={rec}  />)}
+            </>
+            }
+            
+            
             {/* <Card content={} /> */}
              {/* <AtendncStuTemp sname={"Mohammad Ashraf"} uroll={"2234221"} /> count={[setP_Count, setO_Count, setA_Count] */}
         </>

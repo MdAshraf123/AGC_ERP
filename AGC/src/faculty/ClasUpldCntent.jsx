@@ -1,14 +1,14 @@
 import React from 'react'
 import './clasUpldCntent.css'
 import check from '../assets/check.png'
-const ClasUpldCntent=()=>{
+const ClasUpldCntent=(props)=>{
     return(
        <>
        <div className="clasUplds-card">
-       <h2>B-Tech (CSc)</h2>
+       <h2>{props.data.department}</h2>
         <div className="clas-info">
-            <p>6th sem</p>
-            <p>ML</p>
+            <p>{props.data.semester}th sem</p>
+            <p>{props.data.subject}</p>
         </div>
         
         <div className="asgnmnts">

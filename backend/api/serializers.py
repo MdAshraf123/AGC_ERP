@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import Department,Section,Semester,Group,Student,Subject,Employee,TeacherAlott,Attendence
+from .models import Department,Section,Semester,Group,Student,Subject,Employee,TeacherAlott,Attendence,AcademicAssignment
 from django.contrib.auth.models import User
 
 class DepartmentSerializer(serializers.ModelSerializer):
@@ -20,6 +20,11 @@ class SectionSerializer(serializers.ModelSerializer):
     class Meta:
         model=Section
         fields=['department','semester','section']
+
+class SubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Subject
+        fields=['sub_id','name','type']
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
@@ -127,8 +132,27 @@ class AttendenceCreateSerializer(serializers.ModelSerializer):
         model=Attendence 
         fields=['student','students','date','is_present'] 
 
+class AcademicAssignmentSerializer(serializers.ModelSerializer):
+    section=SectionSerializer()
+    subject=SubjectSerializer()
+    class Meta:
+        model=AcademicAssignment
+        fields=['department','semester','section','subject','uploaddate','assignmentfile']
 
-
+    def to_representation(self, instance):
+        data=super().to_representation(instance)
+        if data:
+            return {
+                'department':data['section']['semester']['department']['name'],
+                'semester':data['section']['semester']['sem'],
+                'section':data['section']['section'],
+                'subject':data['subject']['name'],
+                'upload_date':data['uploaddate'],
+                'assignment':data['assignmentfile'],
+                
+            }
+        else: 
+            return {}
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod

@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import BasePermission, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
-from api.serializers import DepartmentSerializer,SectionSerializer,MyTokenObtainPairSerializer,SemesterSerializer,StudentSerializer,EmployeeSerializer,TeacherAlottSerializer,AttendenceSerializer,AttendanceStudentSerializer,AttendenceCreateSerializer
-from api.models import Department,Section,Student,Semester,TeacherAlott,Attendence,Group,Subject
+from api.serializers import DepartmentSerializer,SectionSerializer,MyTokenObtainPairSerializer,SemesterSerializer,StudentSerializer,EmployeeSerializer,TeacherAlottSerializer,AttendenceSerializer,AttendanceStudentSerializer,AttendenceCreateSerializer,AcademicAssignmentSerializer
+from api.models import Department,Section,Student,Semester,TeacherAlott,Attendence,Group,Subject,AcademicAssignment
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import make_password, check_password
 from datetime import datetime
@@ -168,6 +168,14 @@ def all_lecture_allots(request):
             unique_sub.add(str(allot.subject))
             subject_list.append(allot)
     serializer=TeacherAlottSerializer(subject_list, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET','POST'])
+@permission_classes([IsAuthenticated])
+def assignment(request):
+    if request.method=='GET':
+        assignment= AcademicAssignment.objects.filter(employee=request.user.employees )
+        serializer=AcademicAssignmentSerializer(assignment, many=True)
     return Response(serializer.data)
 
 @api_view(['PUT'])

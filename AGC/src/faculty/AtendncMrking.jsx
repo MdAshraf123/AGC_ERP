@@ -15,7 +15,7 @@ const AtendncMrking=()=>{
     const [attendncData, setAttendncData]=useState({});
     const isFirstRender=useRef(true);
     let navigate=useNavigate();
-    let HOST_URL='http://10.119.165.166:8000/';
+    let HOST_URL='http://172.16.120.138:8000/';
 
     async function attendcPutHandler(){
         let url=HOST_URL+'api/students/';

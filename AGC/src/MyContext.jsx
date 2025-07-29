@@ -1,6 +1,6 @@
 import {createContext, useState} from 'react';
 export const MyContext=createContext();
-let HOST_URL='http://10.119.165.166:8000/';
+let HOST_URL='http://172.16.120.138:8000/';
 // let getdepartment='http://10.21.19.166:8000/api/departments/';
 // let getsections='http://127.0.0.1:8000/api/sections/';
 // let getsemester='http://127.0.0.1:8000/api/semester/';

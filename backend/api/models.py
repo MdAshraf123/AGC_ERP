@@ -166,9 +166,11 @@ class Attendence(models.Model):
         return f"{self.department} {self.subject} "
     
 class AcademicAssignment(models.Model):
+    employee=models.ForeignKey(Employee, on_delete=models.CASCADE,related_name='academicassignment')
     department=models.ForeignKey(Department, on_delete=models.CASCADE , related_name='academicassignment')
     semester=models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='academicassignment')
     section=models.ForeignKey(Section, on_delete=models.CASCADE, related_name='academicassignment')
+    subject=models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="academicassignment")
     uploaddate=models.DateField(auto_now_add=True)
     assignmentfile=models.FileField(upload_to='assignments/')
 

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Student,Semester,Subject,Section,Attendence,Department,Group,User,Employee,Day,TeacherAlott
+from .models import Student,Semester,Subject,Section,Attendence,Department,Group,User,Employee,Day,TeacherAlott, AcademicAssignment
 # Register your models here.
 
 class AdminStudent(admin.ModelAdmin):
@@ -22,7 +22,7 @@ class AdminAttendance(admin.ModelAdmin):
     list_display=['id','employee','students','department','group','subject','date','is_present']
 
 class AdminSubject(admin.ModelAdmin):
-    list_display=['sub_id','department','semester','name','type']
+    list_display=['id','sub_id','department','semester','name','type']
 
 class AdminTeacherAlott(admin.ModelAdmin):
     list_display=['employees','section','group','subject','day','time']
@@ -30,8 +30,12 @@ class AdminTeacherAlott(admin.ModelAdmin):
 class AdminGroup(admin.ModelAdmin):
     list_display=['id','sections', 'group']
 
+class AdminAcademicAssignment(admin.ModelAdmin):
+    list_display=['id','employee','department','semester','section','uploaddate','assignmentfile']
 
-admin.site.register(Department) 
+
+
+admin.site.register(Department)  
 admin.site.register(Semester)
 admin.site.register(Student,AdminStudent)
 admin.site.register(Section)
@@ -40,6 +44,7 @@ admin.site.register(Subject, AdminSubject)
 admin.site.register(Attendence,AdminAttendance)
 admin.site.register(TeacherAlott,AdminTeacherAlott) 
 admin.site.register(Employee, AdminEmployee) 
+admin.site.register(AcademicAssignment,AdminAcademicAssignment)
 
 class DayAdmin(admin.ModelAdmin):
     list_display=['id','day']
