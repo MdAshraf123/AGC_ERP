@@ -6,7 +6,7 @@ import m4 from './assets/m4.jpeg';
 import f1 from './assets/f1.jpeg';
 import f2 from './assets/f2.jpeg';
 import f3 from './assets/f3.jpeg';
-import agc from './assets/agc.jpg';
+import agc from './assets/agc.JPG';
 import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MyContext } from './MyContext';
