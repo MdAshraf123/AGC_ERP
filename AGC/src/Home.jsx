@@ -36,10 +36,10 @@ const Home=()=>{
                 <div className='contact-links' >
                 <a href=""><span className="fa fa-whatsapp"></span></a> {/*https://wa.me/8872009950 */}
                 <a href=""><span className="fa fa-phone"></span></a> {/*tel:+918872009951*/}
-                <a href=""><span className="fa fa-facebook"></span></a> {/* https://www.facebook.com/AGC.AMRITSAR.PUNJAB/*/}
+                <a href="https://www.facebook.com/AGC.AMRITSAR.PUNJAB/" target="_blank"><span className="fa fa-facebook"></span></a> {/* https://www.facebook.com/AGC.AMRITSAR.PUNJAB/*/}
                 <a href=""><span className="fa fa-twitter"></span></a> {/* https://twitter.com/AGCAmritsar*/}
-                <a href=""><span className="fa fa-instagram"></span></a>{/*https://www.instagram.com/agcamritsar/ */}
-                <a href=""><span className="fa fa-linkedin"></span></a> {/*https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fwww.agcamritsar.in%2Fblogsdetail.aspx%3Fi%3D61&amp;linkname=Amritsar%20Group%20Of%20Colleges&amp;linknote= */}
+                <a href="https://www.instagram.com/agcamritsar/" target="_blank"><span className="fa fa-instagram"></span></a>{/*https://www.instagram.com/agcamritsar/ */}
+                <a href="https://www.linkedin.com/company/agc-amritsar-group-of-colleges/?originalSubdomain=in" target="_blank"><span className="fa fa-linkedin"></span></a> {/*https://www.addtoany.com/add_to/linkedin?linkurl=https%3A%2F%2Fwww.agcamritsar.in%2Fblogsdetail.aspx%3Fi%3D61&amp;linkname=Amritsar%20Group%20Of%20Colleges&amp;linknote= */}
                 </div>
                 <label className="openClose" htmlFor="btn-open-close" onClick={(e)=>handleContact(e)}></label>
                 <input type="checkbox" id="btn-open-close" hidden/>

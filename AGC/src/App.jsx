@@ -7,7 +7,7 @@ import FeeStatus from './FeeStatus.jsx';
 import TodayAttends from './TodayAttends.jsx';
 import AtendncMrking from './faculty/AtendncMrking.jsx';
 import TimeTable from './faculty/TimeTable.jsx';
-import AtendncHome from './faculty/atendncHome.jsx';
+import AtendncHome from './faculty/AtendncHome.jsx';
 import UplodMtrials from './faculty/UplodMtrials.jsx';
 import UserProfile from './UserProfile.jsx';
 import Layout from './Layout.jsx';
