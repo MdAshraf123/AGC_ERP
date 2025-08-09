@@ -13,10 +13,9 @@ const UplodMtrials=()=>{
     const [lectureOptList, setLectureOptList]=useState([]);
     const[fetchedAssignments, setFetchedAssignments]=useState([]);
     const{authFetch,}=useContext(MyContext);
-    const HOST_URL='http://172.16.120.138:8000/'
 
     useEffect(()=>{
-        authFetch(HOST_URL+'api/allotlectures/',
+        authFetch(process.env.API_BASE_URL+'allotlectures/',
             {
                 method:'GET',
                 headers:{},
@@ -36,7 +35,7 @@ const UplodMtrials=()=>{
     },[])
 
     useEffect(()=>{
-        authFetch(HOST_URL+'api/assignments/',
+        authFetch(process.env.API_BASE_URL+'assignments/',
             {
                 method:'GET',
                 headers:{},

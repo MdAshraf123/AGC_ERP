@@ -68,7 +68,7 @@
 .Image-Container{
     width: 100%;
     aspect-ratio:10/5 ;
-    background:linear-gradient(to right, rgba(0, 0, 255, 0.315),rgba(0, 0, 255, 0.415)), url("src/assets/graduate.avif") ;
+    background:linear-gradient(to right, rgba(0, 0, 255, 0.315),rgba(0, 0, 255, 0.415)), url("src/assets/graduate.jpg") ;
     background-size:90% ;
     background-repeat: no-repeat;
     background-position: 50% 80% ;

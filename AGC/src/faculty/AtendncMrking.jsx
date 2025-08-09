@@ -15,10 +15,9 @@ const AtendncMrking=()=>{
     const [attendncData, setAttendncData]=useState({});
     const isFirstRender=useRef(true);
     let navigate=useNavigate();
-    let HOST_URL='http://172.16.120.138:8000/';
 
     async function attendcPutHandler(){
-        let url=HOST_URL+'api/students/';
+        let url=process.env.API_BASE_URL+'students/';
         let response= await authFetch(url,
             {
             method: 'PUT',
@@ -32,7 +31,7 @@ const AtendncMrking=()=>{
             
     }
     useEffect(()=>{  
-        authFetch(HOST_URL+'api/allotclass_of_day/',{
+        authFetch(process.env.API_BASE_URL+'allotclass_of_day/',{
             method:'GET',
             headers:{},
         }, navigate)
@@ -62,7 +61,7 @@ const AtendncMrking=()=>{
             return;
         }
         let urlparams=selectedLecture.split(',');
-        let url=HOST_URL+`api/students/?dept=${urlparams[0]}&sem=${urlparams[1]}&sec=${urlparams[2]}&group=${urlparams[3]}`;
+        let url=process.env.API_BASE_URL+`students/?dept=${urlparams[0]}&sem=${urlparams[1]}&sec=${urlparams[2]}&group=${urlparams[3]}`;
         
         authFetch(url,{method:'GET',},navigate)
         .then((res)=>res.json())

@@ -1,17 +1,13 @@
 import {createContext, useState} from 'react';
 export const MyContext=createContext();
-let HOST_URL='http://172.16.120.138:8000/';
-// let getdepartment='http://10.21.19.166:8000/api/departments/';
-// let getsections='http://127.0.0.1:8000/api/sections/';
-// let getsemester='http://127.0.0.1:8000/api/semester/';
-// let getstudent='http://127.0.0.1:8000/api/student_profile/';
+
 
 export function MyContextProvider({ children }){
     const [islogin, setIslogin]=useState(false);
    
     async function  refresh(navigate){
         console.log('refresh called')
-        let refreshtoken=HOST_URL+'api/token/refresh/';
+        let refreshtoken=process.env.REFERESH_TOKEN;
         let refresh= localStorage.getItem('refresh');
 
         if(refresh){
@@ -40,7 +36,7 @@ export function MyContextProvider({ children }){
     }
 
     async function login(user, pass){
-            let apitoken=HOST_URL+'api/token/';
+            let apitoken=process.env.CREATE_TOKEN;
             let response=await fetch(apitoken,
                 {
                     method:'POST',
@@ -90,9 +86,9 @@ export function MyContextProvider({ children }){
     function user(){
         if(islogin){
             let userdata=extractdata();
-            let url=HOST_URL+'api/student_profile/';
+            let url=process.env.API_BASE_URL+'student_profile/';
             if(userdata.role=='faculty')
-                url=HOST_URL+'api/employee/';
+                url=process.env.API_BASE_URL+'employee/';
 
             return fetch(url ,
                 {
