@@ -7,7 +7,7 @@ export function MyContextProvider({ children }){
    
     async function  refresh(navigate){
         console.log('refresh called')
-        let refreshtoken=process.env.REFERESH_TOKEN;
+        let refreshtoken=process.env.REACT_APP_REFERESH_TOKEN;
         let refresh= localStorage.getItem('refresh');
 
         if(refresh){
@@ -36,7 +36,7 @@ export function MyContextProvider({ children }){
     }
 
     async function login(user, pass){
-            let apitoken=process.env.CREATE_TOKEN;
+            let apitoken=process.env.REACT_APP_CREATE_TOKEN;
             let response=await fetch(apitoken,
                 {
                     method:'POST',
@@ -86,9 +86,9 @@ export function MyContextProvider({ children }){
     function user(){
         if(islogin){
             let userdata=extractdata();
-            let url=process.env.API_BASE_URL+'student_profile/';
+            let url=process.env.REACT_APP_API_BASE_URL+'student_profile/';
             if(userdata.role=='faculty')
-                url=process.env.API_BASE_URL+'employee/';
+                url=process.env.REACT_APP_API_BASE_URL+'employee/';
 
             return fetch(url ,
                 {

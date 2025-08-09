@@ -15,7 +15,7 @@ const UplodMtrials=()=>{
     const{authFetch,}=useContext(MyContext);
 
     useEffect(()=>{
-        authFetch(process.env.API_BASE_URL+'allotlectures/',
+        authFetch(process.env.REACT_APP_API_BASE_UR+'allotlectures/',
             {
                 method:'GET',
                 headers:{},
@@ -35,7 +35,7 @@ const UplodMtrials=()=>{
     },[])
 
     useEffect(()=>{
-        authFetch(process.env.API_BASE_URL+'assignments/',
+        authFetch(process.env.REACT_APP_API_BASE_UR+'assignments/',
             {
                 method:'GET',
                 headers:{},
