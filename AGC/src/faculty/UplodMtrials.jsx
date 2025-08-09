@@ -15,7 +15,7 @@ const UplodMtrials=()=>{
     const{authFetch,}=useContext(MyContext);
 
     useEffect(()=>{
-        authFetch(process.env.REACT_APP_API_BASE_UR+'allotlectures/',
+        authFetch(import.meta.env.VITE_API_BASE_URL+'allotlectures/',
             {
                 method:'GET',
                 headers:{},
@@ -35,7 +35,7 @@ const UplodMtrials=()=>{
     },[])
 
     useEffect(()=>{
-        authFetch(process.env.REACT_APP_API_BASE_UR+'assignments/',
+        authFetch(import.meta.env.VITE_API_BASE_URL+'assignments/',
             {
                 method:'GET',
                 headers:{},

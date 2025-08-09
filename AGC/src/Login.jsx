@@ -8,7 +8,7 @@ import { MyContext } from './MyContext.jsx';
 
 
 const Login=(props)=>{
-    console.log(process.env.REACT_APP_CREATE_TOKEN)
+    console.log(import.meta.env.VITE_CREATE_TOKEN)
     const navigate=useNavigate();
     const { login, extractdata }= useContext(MyContext);
     const [ username, setUsername ]=useState('');
