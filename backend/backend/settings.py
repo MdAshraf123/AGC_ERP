@@ -29,9 +29,9 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['https://agc-erp-server.onrender.com']
+ALLOWED_HOSTS = ['agc-erp-server.onrender.com']
 
-CSRF_TRUSTED_ORIGINS=['https://agc-erp-server.onrender.com']
+CSRF_TRUSTED_ORIGINS=['https://agc-erp-server.onrender.com','http://agc-erp-server.onrender.com' ]
 # Application definition
 
 INSTALLED_APPS = [
