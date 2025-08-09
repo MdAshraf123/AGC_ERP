@@ -181,7 +181,7 @@ def assignment(request):
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def resetpassword(request):
-    regex='^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@*=+&^%$#!_-]).+$'
+    regex=r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@*=+&^%$#!_-]).+$'
     user=request.user
     if not re.fullmatch(regex,request.data['newPassword']):
         if user.check_password(request.data['oldPassword']):
