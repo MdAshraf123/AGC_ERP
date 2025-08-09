@@ -1,0 +1,36 @@
+# services:
+#   - type: web
+#     name: ashraf
+#     runtime: python
+#     buildCommand: pip install -r requirements.txt
+#     startCommand: gunicorn backendfolio.wsgi:application
+#     envVars:
+#       - key: DATABASE_URL
+#         fromDatabase:
+#           name: portfolio
+#           property: connectionString
+#       - key: SECRET_KEY
+#         generateValue: true
+#       - key: DEBUG
+#         value: False
+
+services:
+  - type: web
+    name: agc
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: |
+      python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py collectstatic --noinput &&
+      gunicorn backendfolio.wsgi:application
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: neondb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False
+
