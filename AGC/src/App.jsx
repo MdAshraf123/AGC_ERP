@@ -67,7 +67,7 @@ const router=createBrowserRouter(
         {
           path:'/edashboard',
           element:<RoleProtectedRoute allowedRoles={['faculty']}>
-                      <Card content={<AtendncHome />}  style={{'height':'auto'}}/>,
+                      <AtendncHome />
                   </RoleProtectedRoute>,
         },
         {

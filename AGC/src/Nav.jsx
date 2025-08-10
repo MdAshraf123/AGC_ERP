@@ -3,11 +3,12 @@ import './Nav.css';
 import logo1 from './assets/logo1.webp';
 import  notification  from './assets/notification.png';
 import menu from './assets/menu.png';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import SideBar from './SideBar.jsx';
 import Login from './Login.jsx';
 import userlogo from './assets/user.png';
 import { NavLink } from 'react-router-dom';
+import { MyContext } from './MyContext.jsx';
 
 
 function btnStyle({isActive}){
@@ -21,6 +22,7 @@ function btnStyle({isActive}){
 const Nav=()=>{
     const [isOpen, setIsOpen]=useState(false);
     const [isLoginOpen, setIsLoginOpen]=useState(false);
+    const {islogin}=useContext(MyContext);
     const clickHandler=()=>{
         setIsOpen((prev) => !prev); 
     }

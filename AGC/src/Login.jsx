@@ -40,7 +40,7 @@ const Login=(props)=>{
     }
     return(
         <div className="backgroundblur">
-        <Card heading="Login" style={{'height':'21rem', 'backgroundColor':'white'}} content={
+        <Card heading="Login" style={{'height':'21rem', 'backgroundColor':'white', 'maxWidth':'40rem'}} content={
             <>
                 <button className="closeLogin" onClick={()=>{ props.setIsLoginOpen(false);}}><img src={closebtn} alt="close" /></button>
                 <form onSubmit={ formhandler }>

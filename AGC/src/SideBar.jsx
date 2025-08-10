@@ -34,6 +34,8 @@ const SideBar = (props) => {
     }
   }, []);
   ////ref={ref} style={{ display: "none" }}
+
+
   return (
     <>
       <div className="side-bar">

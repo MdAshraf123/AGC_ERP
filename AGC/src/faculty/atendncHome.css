@@ -1,9 +1,28 @@
+
+.faculty-dash-background{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height:auto;
+    border-radius: 10px;
+    padding: 10px;
+    /* border: solid 1px rgb(214, 28, 28); */
+    box-shadow: 0px 0px 15px rgb(202, 192, 192);
+    max-width: 80rem;
+    height: fit-content;
+    width: 95%;
+    position: relative;
+}
 .card-btn{
     display: flex;
     flex-direction: column;
-    width:90%;
+    width: 90%;
+    /* min-width: 20rem;*/
+    max-width: 25rem; 
     height: 200px;
-    margin: 10px 0; 
+    margin: 10px 10px; 
     border:none;
     border-radius: 10px;
     padding:30px;
@@ -15,6 +34,7 @@
     text-decoration: none;
     color:rgb(255, 255, 255);
 }
+
 .card-btn:active{
     scale:0.995;
     box-shadow: 0 0 10px rgba(86, 86, 86, 0.6);
@@ -28,5 +48,13 @@
 .assign-btn{
     background-position: 0% 90% ;
     
+}
+
+@media screen and (min-width:768px){
+    .faculty-dash-background{
+        display: grid;
+        grid-template-columns: 1fr 1fr;  
+        place-items: center;
+    }
 }
 

@@ -1,15 +1,15 @@
 .box{
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: space-evenly;
     align-items: center;
     height:auto;
     border-radius: 10px;
     padding: 10px;
     /* border: solid 1px rgb(214, 28, 28); */
     box-shadow: 0px 0px 15px rgb(202, 192, 192);
-    max-width: 30rem;
-    height: 15rem;
+    max-width: 80rem;
+    /* height: 15rem; */
     width: 95%;
     position: relative;
 }

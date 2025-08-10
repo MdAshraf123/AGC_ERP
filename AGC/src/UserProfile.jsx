@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MyContext } from './MyContext.jsx';
+import ClipLoader from 'react-spinners/ClipLoader';
 import './userProfile.css';
 import close from './assets/close.png';
 import userimg from './assets/user.png';
@@ -10,6 +11,7 @@ const UserProfile=()=>{
     const [userprofile, setUserprofile]=useState({});
     const [ role, setRole]=useState('');
     const navigate=useNavigate();
+
     useEffect(()=>{
         if(localStorage.getItem('access')){
             user().then((data)=>{
@@ -19,7 +21,31 @@ const UserProfile=()=>{
         }
     
     },[])
-    
+    console.log(Object.keys(userprofile).length)
+
+    if (Object.keys(userprofile).length ==0){
+        return (
+            <div style={{ 
+                position: 'absolute',
+                top:'0px',
+                left:'0px',
+                width:'100%',
+                height:'100%',
+                display:'flex',
+                justifyContent:'center',
+                alignItems:'center',
+                zIndex:'1000',
+                textAlign: "center",
+                marginTop: "50px", 
+                backgroundColor:'red',
+                // background:'linearGradient(tobottom,rgba(96, 97, 99,0.7),rgba(96, 97, 99,0.7))'
+                }}>
+                <ClipLoader size={50} color="#123abc" />
+                
+            </div>
+        );
+    }
+
     return(
         <>
             <div className="profile-can" >

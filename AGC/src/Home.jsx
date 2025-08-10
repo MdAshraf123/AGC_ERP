@@ -44,6 +44,7 @@ const Home=()=>{
                 <label className="openClose" htmlFor="btn-open-close" onClick={(e)=>handleContact(e)}></label>
                 <input type="checkbox" id="btn-open-close" hidden/>
             </div>
+            
             <div className="aboutAgc">
                 <h3>Amritsar Group Of Colleges</h3>
                 <p>

@@ -21,6 +21,7 @@
     position: fixed;
     left: 0;
     top:30%;
+    z-index: 50;
     transform: translateX(-42px);
     transition: all 0.5s ease ;
 }
@@ -69,7 +70,7 @@
     width: 100%;
     aspect-ratio:10/5 ;
     background:linear-gradient(to right, rgba(0, 0, 255, 0.315),rgba(0, 0, 255, 0.415)), url("src/assets/graduate.jpg") ;
-    background-size:90% ;
+    background-size:cover ;
     background-repeat: no-repeat;
     background-position: 50% 80% ;
     background-clip: border-box;

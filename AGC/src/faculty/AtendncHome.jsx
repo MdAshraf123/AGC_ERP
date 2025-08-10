@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './atendncHome.css';
 const AtendncHome=()=>{
     return(
-            <>
+            <div className="faculty-dash-background">
                 <Link to="/attendance" className="card-btn atten-btn">
                 <h2>Student List</h2>
                 <p>
@@ -17,7 +17,9 @@ const AtendncHome=()=>{
                     Upload assignments <br/> lecture wise
                 </p>
                 </Link>
-            </>
+
+                
+            </div>
     )
 }
 export default AtendncHome;
