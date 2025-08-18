@@ -3,10 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../MyContext.jsx';
 import './atendncMrking.css';
 import AtendncStuTemp from './AtendncStuTemp.jsx';
-import Spinner from "../components/compfile/Spinner.jsx";
 import AttendncLoader from '../components/compfile/AttendncLoader.jsx';
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
 
 const AtendncMrking=()=>{
