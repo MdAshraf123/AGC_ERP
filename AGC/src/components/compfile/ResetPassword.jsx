@@ -61,28 +61,59 @@ const ResetPassword=(props)=>{
         }
        
     }
-    return(
-    <>
-            <div className="password-container">
-                <h2>Reset Password</h2>
-                <form className="row g-3" onSubmit={ formHandler }>
-                <div className="row-md-6">
-                    <label htmlFor="inputPassword5" className="form-label">Old password</label>
-                    <input type="password" value={ oldPassword } onChange={ (v)=>{setOldPassword(v.target.value.replace(/\s/g,''))}} className="form-control" id="inputPassword5"/>
-                </div>
-
-                <div className="row-md-6">
-                    <label htmlFor="inputPassword4" className="form-label">New Password</label>
-                    <input type="password" value={ newPassword } onChange={ (v)=>{ setNewPassword(v.target.value.replace(/\s/g,''))}} className="form-control" id="inputPassword4"/>
-                </div>
-                
-                <div className="col-12">
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </div>
-                </form>
-                <p id="error-message">{ errorMessage }</p>
+    return (
+      <>
+        <div className="password-container">
+          <h2>Reset Password</h2>
+          <form className="row g-3" onSubmit={formHandler}>
+            <div className="row-md-6">
+              <label htmlFor="inputPassword5" className="form-label">
+                Old password
+              </label>
+              <input
+                type="password"
+                value={oldPassword}
+                onChange={(v) => {
+                  setOldPassword(v.target.value.replace(/\s/g, ""));
+                }}
+                className="form-control"
+                id="inputPassword5"
+              />
             </div>
-    </>
+
+            <div className="row-md-6">
+              <label htmlFor="inputPassword4" className="form-label">
+                New Password
+              </label>
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(v) => {
+                  setNewPassword(v.target.value.replace(/\s/g, ""));
+                }}
+                className="form-control"
+                id="inputPassword4"
+              />
+            </div>
+
+            <div className="col-12">
+              <button type="submit" className="btn btn-primary">
+                Reset
+              </button>
+            </div>
+            <button className="btn btn-primary" type="button" disabled={true}>
+              <span
+                className="spinner-border spinner-border-sm"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden" role="status">
+                Loading...
+              </span>
+            </button>
+          </form>
+          <p id="error-message">{errorMessage}</p>
+        </div>
+      </>
     );
 }
 export default ResetPassword;

@@ -3,6 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../MyContext.jsx';
 import './atendncMrking.css';
 import AtendncStuTemp from './AtendncStuTemp.jsx';
+import Spinner from "../components/compfile/Spinner.jsx";
+import AttendncLoader from '../components/compfile/AttendncLoader.jsx';
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 
 const AtendncMrking=()=>{
     const[selectedLecture, setSelectedLecture]=useState(',');
@@ -10,8 +15,8 @@ const AtendncMrking=()=>{
     const { authFetch }= useContext(MyContext); 
     const [ scheduledLectures, setScheduledLectures]=useState([]);
     const[p_count, setP_Count]=useState(0);
-    const[o_count,setO_Count]=useState(0);
-    const[a_count,setA_Count]=useState(0);
+    const[o_count, setO_Count]=useState(0);
+    const[a_count, setA_Count]=useState(0);
     const [attendncData, setAttendncData]=useState({});
     const isFirstRender=useRef(true);
     let navigate=useNavigate();
@@ -62,7 +67,7 @@ const AtendncMrking=()=>{
         }
         let urlparams=selectedLecture.split(',');
         let url=import.meta.env.VITE_API_BASE_URL+`students/?dept=${urlparams[0]}&sem=${urlparams[1]}&sec=${urlparams[2]}&group=${urlparams[3]}`;
-        
+        setStudentAttndcList([]);
         authFetch(url,{method:'GET',},navigate)
         .then((res)=>res.json())
         .then((data)=>{
@@ -101,29 +106,60 @@ const AtendncMrking=()=>{
     },[selectedLecture])
 
     console.log('list',attendncData) ;
+    if(studentAttndcList.length==0){
+        return(
+           <AttendncLoader/>
+        )
+    }
 
-    return(
-        <> 
-            <div className="atend-head-can">
-                <div className="atend-head-control">
-                    <label ><b>Select lecture</b></label>
-                    <select value={ selectedLecture } onChange={(e)=>{ setSelectedLecture(e.target.value);}} className="form-select" aria-label="Default select example">
-                        { scheduledLectures }
-                    </select>
-                </div>
-                
-                <div className="atend-head-div">
-                    <div className="atend-info"><p>Present: {p_count}</p></div>
-                    <div className="atend-info"><p>Absent: {a_count}</p></div>
-                    <div className="atend-info"><p>Total: {studentAttndcList.length}</p></div>
-                </div>
+    return (
+      <>
+        <div className="atend-head-can">
+          <div className="atend-head-control">
+            <label>
+              <b>Select lecture</b>
+            </label>
+            <select
+              value={selectedLecture}
+              onChange={(e) => {
+                setSelectedLecture(e.target.value);
+              }}
+              className="form-select"
+              aria-label="Default select example"
+            >
+              {scheduledLectures}
+            </select>
+          </div>
+
+          <div className="atend-head-div">
+            <div className="atend-info">
+              <p>Present: {p_count}</p>
             </div>
-            { studentAttndcList }
-            
-            {/* <AtendncStuTemp sname={"Mohammad Ashraf"} uroll={"2234221"} count={[setP_Count, setO_Count, setA_Count]} />
-            <AtendncStuTemp sname={"Nitin Choudhary"} uroll={"2247526"} count={[setP_Count, setO_Count, setA_Count]}/> */}
-           <button className="btn btn-primary mt-4 mb-1 btn-lg" onClick={ attendcPutHandler } style= {{display:studentAttndcList.length==0? 'none': 'inline',}}>Submit</button>
-        </>
+            <div className="atend-info">
+              <p>Absent: {a_count}</p>
+            </div>
+            <div className="atend-info">
+              <p>Total: {studentAttndcList.length}</p>
+            </div>
+          </div>
+        </div>
+        { studentAttndcList }
+        {/* {studentAttndcList.length==0 ? (
+          <>
+            <Skeleton height={50} count={5} style={{ marginBottom: "10px" }} />
+          </>
+        ) : (
+          <>{studentAttndcList}</>
+        )} */}
+
+        <button
+          className="btn btn-primary mt-4 mb-1 btn-lg"
+          onClick={attendcPutHandler}
+          style={{ display: studentAttndcList.length == 0 ? "none" : "inline" }}
+        >
+          Submit
+        </button>
+      </>
     );
 }
 export default AtendncMrking;

@@ -31,26 +31,26 @@ const router=createBrowserRouter(
         {
           path:'/resetpassword',
           element:<RoleProtectedRoute allowedRoles={['faculty','student']}>
-                      <ResetPassword/>,
+                      <ResetPassword/>
                   </RoleProtectedRoute>,
         },
          {
           path:'/calender',
           element:<RoleProtectedRoute allowedRoles={['faculty','student']}>
-                      <AcademicCalender/>,
+                      <AcademicCalender/>
                   </RoleProtectedRoute>,
           
         },
         {
           path:'/profile',
           element:<RoleProtectedRoute allowedRoles={['faculty','student']}>
-                      <UserProfile/>,
+                      <UserProfile/>
                   </RoleProtectedRoute>,
         },
         {
           path:'/attendance',
           element:<RoleProtectedRoute allowedRoles={['faculty']}>
-                      <Card content={<AtendncMrking />} style={{"height":"auto"}}/>,
+                      <Card content={<AtendncMrking />} style={{"height":"auto"}}/>
                   </RoleProtectedRoute>,
         },
         {
@@ -73,7 +73,7 @@ const router=createBrowserRouter(
         {
           path:'/upload',
           element:<RoleProtectedRoute allowedRoles={['faculty']}>
-                      <Card content={<UplodMtrials/>} style={{'height':'auto'}}/>,
+                      <Card content={<UplodMtrials/>} style={{'height':'auto'}}/>
                   </RoleProtectedRoute>,
         }
       ]

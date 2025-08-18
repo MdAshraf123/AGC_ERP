@@ -30,6 +30,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['agc-erp-server.onrender.com']
+# ALLOWED_HOSTS=['127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS=['https://agc-erp-server.onrender.com','http://agc-erp-server.onrender.com' ]
 # Application definition
