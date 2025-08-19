@@ -13,7 +13,8 @@ const Login=(props)=>{
     const { login, extractdata }= useContext(MyContext);
     const [ username, setUsername ]=useState('');
     const [ password, setPassword ]=useState('');
-    const [isrobot, setIsrobot]=useState(false);   
+    const [isrobot, setIsrobot]=useState(false); 
+    const [isLoading, setIsLoading] =useState(false);
         
      const formhandler= async (e)=>{
         e.preventDefault();
@@ -25,9 +26,11 @@ const Login=(props)=>{
             alert('Password should be of more than 3 characters!');
             return;
         }
+        setIsLoading(true);
         let data=await login(username, password);
        
         if(data){
+            setIsLoading(false);
             props.setIsLoginOpen(false);
             if(extractdata().role==='student')
                 navigate('/dashboard');
@@ -38,30 +41,90 @@ const Login=(props)=>{
             }
         }
     }
-    return(
-        <div className="backgroundblur">
-        <Card heading="Login" style={{'height':'21rem', 'backgroundColor':'white', 'maxWidth':'40rem'}} content={
+    return (
+      <div className="backgroundblur">
+        <Card
+          heading="Login"
+          style={{
+            height: "21rem",
+            backgroundColor: "white",
+            maxWidth: "40rem",
+          }}
+          content={
             <>
-                <button className="closeLogin" onClick={()=>{ props.setIsLoginOpen(false);}}><img src={closebtn} alt="close" /></button>
-                <form onSubmit={ formhandler }>
-                    <div className="mb-3">
-                        <label htmlFor="userName" className="form-label">User id</label>
-                        <input type="text" value={ username } onChange={ (e)=>{setUsername(()=> e.target.value)}} className="form-control" id="userName" required />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                        <input type="password" value={ password } onChange={ (e)=>{setPassword(()=> e.target.value)}} className="form-control" id="exampleInputPassword1" required />
-                    </div>
-                    <div className="mb-3 form-check">
-                        <input type="checkbox" checked={ isrobot } onChange={(e)=>{setIsrobot(e.target.checked)}} className="form-check-input" id="exampleCheck1" required />
-                        <label className="form-check-label" htmlFor="exampleCheck1">I'm not a robot</label>
-                    </div>
-                    <button type="submit" disabled={!isrobot} className="btn btn-primary px-4">Login</button>
-                </form>
-                
+              <button
+                className="closeLogin"
+                onClick={() => {
+                  props.setIsLoginOpen(false);
+                }}
+              >
+                <img src={closebtn} alt="close" />
+              </button>
+              <form onSubmit={formhandler}>
+                <div className="mb-3">
+                  <label htmlFor="userName" className="form-label">
+                    User id
+                  </label>
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => {
+                      setUsername(() => e.target.value);
+                    }}
+                    className="form-control"
+                    id="userName"
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="exampleInputPassword1" className="form-label">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(() => e.target.value);
+                    }}
+                    className="form-control"
+                    id="exampleInputPassword1"
+                    required
+                  />
+                </div>
+                <div className="mb-3 form-check">
+                  <input
+                    type="checkbox"
+                    checked={isrobot}
+                    onChange={(e) => {
+                      setIsrobot(e.target.checked);
+                    }}
+                    className="form-check-input"
+                    id="exampleCheck1"
+                    required
+                  />
+                  <label className="form-check-label" htmlFor="exampleCheck1">
+                    I'm not a robot
+                  </label>
+                </div>
+                <button
+                  type="submit"
+                  disabled={!isrobot || isLoading }
+                  className="btn btn-primary px-4"
+                >
+                <span
+                    className={isLoading?"spinner-border spinner-border-sm":"spinner-border spinner-border-sm visually-hidden"}
+                    aria-hidden="true"
+                  ></span>
+                  <span  className="mx-2 " role="status">
+                    Login
+                  </span>
+                  
+                </button>
+              </form>
             </>
-        }/>
-        </div>
-    )
+          }
+        />
+      </div>
+    );
 }
 export default Login;

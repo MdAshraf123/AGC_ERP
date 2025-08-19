@@ -8,8 +8,10 @@ const ResetPassword=(props)=>{
     const [oldPassword, setOldPassword]=useState('');
     const [newPassword, setNewPassword]=useState('');
     const [ errorMessage, setErrorMessage]=useState('');
+    const [isLoading, setIsLoading]=useState(false);
     const {refresh }=useContext(MyContext);
     let navigate=useNavigate();
+
     function formHandler(e){
         e.preventDefault()
         let input=e.target;
@@ -35,28 +37,37 @@ const ResetPassword=(props)=>{
         }
         else {
             setErrorMessage('');
+            setIsLoading(true);
             if( refresh(navigate) ){
-                (async function(){
-                    return fetch('http://10.145.233.166:8000/api/resetpassword/',
-                    {
-                        method:'PUT',
-                        headers:{
-                            'Content-Type':'application/json',
-                            'Authorization': `Bearer ${localStorage.getItem('access')}`,
-                        },
-                        body:JSON.stringify(
-                            {
-                                'oldPassword':oldPassword,
-                                'newPassword':newPassword,       
-                            }
-                        )
-                })
-                .then((res)=> res.json())
-                .then((data)=>{
-                    alert(data.message + '\nPlease login again.');
+              (async function () {
+                  try {
+                      setIsLoading(true);
+                      const response = await fetch(import.meta.env.VITE_API_BASE_URL + 'resetpassword/', {
+                          method: 'PUT',
+                          headers: {
+                              'Content-Type': 'application/json',
+                              'Authorization': `Bearer ${localStorage.getItem('access')}`,
+                          },
+                          body: JSON.stringify({
+                              oldPassword: oldPassword,
+                              newPassword: newPassword,
+                          }),
+                      });
 
-                })
-                })()
+                      const data = await response.json();
+                      setIsLoading(false);
+
+                      if (response.ok) {
+                          alert(data.message);
+                      } else {
+                          alert(data.error || "Something went wrong");
+                      }
+                  } catch (error) {
+                      setIsLoading(false);
+                      alert("Network error: " + error.message);
+                  }
+              })();
+
             }
         }
        
@@ -98,18 +109,17 @@ const ResetPassword=(props)=>{
 
             <div className="col-12">
               <button type="submit" className="btn btn-primary">
-                Reset
-              </button>
-            </div>
-            <button className="btn btn-primary" type="button" disabled={true}>
               <span
-                className="spinner-border spinner-border-sm"
+                className={ isLoading? "spinner-border spinner-border-sm mx-2":"visually-hidden" }
                 aria-hidden="true"
               ></span>
-              <span className="visually-hidden" role="status">
-                Loading...
+              <span role="status">
+                Reset
               </span>
-            </button>
+                
+              </button>
+            </div>
+            
           </form>
           <p id="error-message">{errorMessage}</p>
         </div>
