@@ -181,15 +181,16 @@ def assignment(request):
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def resetpassword(request):
-    regex=r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@*=+&^%$#!_-]).+$'
+    regex=r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@*=+&%$#!_\-^]).{5,}$'
     user=request.user
-    if not re.fullmatch(regex,request.data['newPassword']):
-        if user.check_password(request.data['oldPassword']):
-            user.password=make_password(request.data['newPassword'])
+    
+    if re.fullmatch(regex,request.data['newPassword'].strip()):
+        if user.check_password(request.data['oldPassword'].strip()):
+            user.password=make_password(request.data['newPassword'].strip())
             user.save()
             return JsonResponse({'message':'Successfully changed!',}, status=200)
         else:
-            return JsonResponse({'message':'Unauthorized user!',}, status=401)
+            return JsonResponse({'error':'Unauthorized user!',}, status=401)
     else:
-        return JsonResponse({'message':'New password is in wrong format!',}, status=200)
+        return JsonResponse({'error':'New password is in wrong format!',}, status=200)
     

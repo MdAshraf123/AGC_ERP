@@ -4,6 +4,7 @@ import { MyContext } from '../MyContext.jsx';
 import './atendncMrking.css';
 import AtendncStuTemp from './AtendncStuTemp.jsx';
 import AttendncLoader from '../components/compfile/AttendncLoader.jsx';
+import Spinner from '../components/compfile/Spinner.jsx';
 
 
 const AtendncMrking=()=>{
@@ -103,11 +104,16 @@ const AtendncMrking=()=>{
     },[selectedLecture])
 
     console.log('list',attendncData) ;
-    if(studentAttndcList.length==0){
-        return(
-           <AttendncLoader/>
-        )
-    }
+
+    //studentAttndcList
+    // useEffect(()=>{
+    //   if(scheduledLectures.length==0){
+    //     return(
+    //        <Spinner/>
+    //     )
+    // }
+    // },[scheduledLectures.length])
+    
 
     return (
       <>
@@ -140,7 +146,7 @@ const AtendncMrking=()=>{
             </div>
           </div>
         </div>
-        { studentAttndcList }
+        {studentAttndcList.length==0? <AttendncLoader/>: studentAttndcList }
         {/* {studentAttndcList.length==0 ? (
           <>
             <Skeleton height={50} count={5} style={{ marginBottom: "10px" }} />

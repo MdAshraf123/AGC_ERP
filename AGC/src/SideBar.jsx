@@ -15,26 +15,22 @@ const SideBar = (props) => {
     refresh,
     logout,
     extractdata,
+    userData,
   } = useContext(MyContext);
   const [username, setUsername] = useState("User");
   const navigate = useNavigate();
   
   useEffect(() => {
-    if (isAccessTokenValid()) {
-      setIslogin(true);
-    } else {
-      refresh(navigate);
-    }
     if (islogin) {
-      user().then((data) => {
-        setUsername(() => {
-          return data.name;
-        });
-      });
+      setUsername(userData.name);
     }
   }, []);
   ////ref={ref} style={{ display: "none" }}
-
+// user().then((data) => {
+//         setUsername(() => {
+//           return data.name;
+//         });
+//       });
 
   return (
     <>

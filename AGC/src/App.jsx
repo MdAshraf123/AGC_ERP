@@ -13,11 +13,14 @@ import UserProfile from './UserProfile.jsx';
 import Layout from './Layout.jsx';
 import Login from './Login.jsx';
 import Home from './Home.jsx';
+import SplashScreen from './components/compfile/SplashScreen.jsx';
 import { MyContextProvider } from './MyContext.jsx';
 import RoleProtectedRoute from './RoleProtectedRoute.jsx';
-import {  createBrowserRouter, RouterProvider } from 'react-router-dom'
+import {  createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ResetPassword from './components/compfile/ResetPassword.jsx';
 import AcademicCalender from './components/compfile/AcademicCalender.jsx';
+
+
 const router=createBrowserRouter(
   [
     {
@@ -34,7 +37,7 @@ const router=createBrowserRouter(
                       <ResetPassword/>
                   </RoleProtectedRoute>,
         },
-         {
+        {
           path:'/calender',
           element:<RoleProtectedRoute allowedRoles={['faculty','student']}>
                       <AcademicCalender/>
@@ -88,6 +91,7 @@ function App() {
     <>
       <MyContextProvider>
         {/* <TimeTable/> */}
+        {/* <SplashScreen/> */}
        <RouterProvider router={router}/> 
       </MyContextProvider>  
     </> 

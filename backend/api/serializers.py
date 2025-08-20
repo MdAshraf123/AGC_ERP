@@ -35,9 +35,34 @@ class StudentSerializer(serializers.ModelSerializer):
     department=DepartmentSerializer()
     group=GroupSerializer()
     sections=SectionSerializer()
+    semester=SemesterSerializer()
     class Meta:
         model=Student
         fields=['user','department','sections','semester','group','u_roll','c_roll','name','batch','course','father_name','mother_name','dob','address','city','state','country','email','phone','image']
+
+    def to_representation(self, instance):
+        data= super().to_representation(instance)
+        if(data):
+            return {
+                'name':data['name'],
+                'father_name':data['father_name'],
+                'mother_name':data['mother_name'],
+                'u_roll':data['u_roll'],
+                'c_roll':data['c_roll'],
+                'batch':data['batch'],
+                'course':data['course'],
+                'dId':data['department']['dId'],
+                'department':data['department']['name'],
+                'semester':data['semester']['sem'],
+                'sections':data['sections']['section'],
+                'group':data['group']['group'],
+                'city':data['city'],
+                'state':data['state'],
+                'country':data['country'],
+                'phone':data['phone'],
+                'email':data['email'],
+            }
+        
 
 class AttendanceStudentSerializer(serializers.ModelSerializer):
     department=DepartmentSerializer()
@@ -61,6 +86,22 @@ class EmployeeSerializer(serializers.ModelSerializer):
         model=Employee
         fields=['department','name','role','joindate','experties','city','state','address','phone','email']
 
+    def to_representation(self, instance):
+        data= super().to_representation(instance)
+        if(data):
+            return {
+                'name':data['name'],
+                'role':data['role'],
+                'experties':data['experties'],
+                'joindate':data['joindate'],
+                'dId':data['department']['dId'],
+                'department':data['department']['name'],
+                'city':data['city'],
+                'state':data['state'],
+                'address':data['address'],
+                'phone':data['phone'],
+                'email':data['email'],
+            }
 
 class TeacherAlottSerializer(serializers.ModelSerializer):
     section=SectionSerializer() 

@@ -15,9 +15,11 @@ import { MyContext } from './MyContext';
 const Home=()=>{
     const navigate=useNavigate();
     const [is_open, setIsOpen]=useState(false);
-    const { extractdata }=useContext(MyContext);
+    const { islogin,extractdata }=useContext(MyContext);
+    
     useEffect(()=>{
-        if(localStorage.getItem('access')){
+
+        if(islogin && localStorage.getItem('access')){
             if(extractdata().role==='faculty'){
                 navigate('/edashboard',{replace: true});
             }

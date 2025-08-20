@@ -4,6 +4,7 @@ export const MyContext=createContext();
 
 export function MyContextProvider({ children }){
     const [islogin, setIslogin]=useState(false);
+    const [userData, setUserData]=useState({});
    
     async function  refresh(navigate){
         console.log('refresh called')
@@ -18,6 +19,7 @@ export function MyContextProvider({ children }){
                     body:JSON.stringify({'refresh': refresh,}),
                 }
             );
+
             if(response.status === 200){
                 let jsondata= await response.json()
                 let token=jsondata.access;
@@ -65,11 +67,13 @@ export function MyContextProvider({ children }){
     }
 
     function extractdata(){
+        
         let payload=localStorage.getItem('access')
         if(payload){
             return JSON.parse(atob(payload.split('.')[1]));
         }
         return JSON.parse('{}');
+        
     }
 
     function isAccessTokenValid() {
@@ -110,7 +114,7 @@ export function MyContextProvider({ children }){
         localStorage.clear();
         localStorage.clear();
         setIslogin(false);
-        console.log('logout')
+        setUserData({});
         navigate('/');
     };
 
@@ -131,7 +135,7 @@ export function MyContextProvider({ children }){
 
 
     return(
-    <MyContext.Provider value={{login, logout, user, refresh,extractdata, islogin, setIslogin, isAccessTokenValid, authFetch }}>
+    <MyContext.Provider value={{login, logout, user,setUserData,userData, refresh,extractdata, islogin, setIslogin, isAccessTokenValid, authFetch }}>
         {children}
     </MyContext.Provider>
     )

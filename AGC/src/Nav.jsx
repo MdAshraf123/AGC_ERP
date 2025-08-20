@@ -26,7 +26,7 @@ const Nav=()=>{
     const clickHandler=()=>{
         setIsOpen((prev) => !prev); 
     }
-
+ 
     return(
         <>
         <div id="nevigate">
